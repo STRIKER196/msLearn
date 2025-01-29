@@ -22,6 +22,7 @@ internal class Program
         {
             int studentScoresSum = 0;
             decimal studentResoult = 0;
+            string studentResoultLetterGrade = "";
 
             if (name == "Sofii")
             {
@@ -46,7 +47,43 @@ internal class Program
                 studentResoult = (decimal)studentScoresSum / currentAssignments;
             }
 
-            Console.WriteLine($"{name.PadRight(10)} {studentResoult,8:F2}  A-");
+            if (studentResoult >= 97)
+                studentResoultLetterGrade = "A+";
+
+            else if (studentResoult >= 93)
+                studentResoultLetterGrade = "A";
+
+            else if (studentResoult >= 90)
+                studentResoultLetterGrade = "A-";
+
+            else if (studentResoult >= 87)
+                studentResoultLetterGrade = "B+";
+
+            else if (studentResoult >= 83)
+                studentResoultLetterGrade = "B";
+
+            else if (studentResoult >= 80)
+                studentResoultLetterGrade = "B-";
+
+            else if (studentResoult >= 77)
+                studentResoultLetterGrade = "C+";
+
+            else if (studentResoult >= 73)
+                studentResoultLetterGrade = "C";
+
+            else if (studentResoult >= 70)
+                studentResoultLetterGrade = "C-";
+
+            else if (studentResoult >= 67)
+                studentResoultLetterGrade = "D+";
+
+            else if (studentResoult >= 63)
+                studentResoultLetterGrade = "D";
+
+            else if (studentResoult >= 60)
+                studentResoultLetterGrade = "D-";
+
+            Console.WriteLine($"{name.PadRight(10)} {studentResoult,8:F2}  {studentResoultLetterGrade}");
         }
 
         Console.WriteLine("\nPress the Enter key to continue");
