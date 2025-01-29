@@ -12,7 +12,6 @@ namespace msLearn // Note: actual namespace depends on the project name.
             */
 
             // initialize variables - graded assignments 
-            // initialize variables - graded assignments 
             int currentAssignments = 5;
 
             int[] sophiaScores = new int[] { 90, 86, 87, 98, 100 };
@@ -27,7 +26,7 @@ namespace msLearn // Note: actual namespace depends on the project name.
             string currentStudentLetterGrade = "";
 
             // Write the Report Header to the console
-            Console.WriteLine("Student\t\tGrade\t\tGradffe\n");
+            Console.WriteLine("Student\t\tGrade\t\tMark\n");
 
             foreach (string name in studentNames)
             {
