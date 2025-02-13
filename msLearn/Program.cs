@@ -46,26 +46,20 @@ namespace msLearn // Note: actual namespace depends on the project name.
                         monsterHP -= randHeroDmg;
                         Console.WriteLine($"Bohater zadał {randHeroDmg}.pkt obrażeń.");
                         if(monsterHP <= 0)
-                        {
-                        Console.Clear();
-                        Console.ForegroundColor= ConsoleColor.Yellow;
-                        Console.WriteLine("🎉 Zwycięstwo! Pokonałeś Potwora z Bagien! 🎉");
-                        Console.WriteLine("Czy chcesz spróbować ponownie? (T/N) \n lub \n");
-                        Console.WriteLine("Naciśnij Enter, aby zakończyć...");
-                        string restart = Console.ReadLine().ToUpper();
-
-                            if (restart == "T")
-                            { 
-                                Main(args);
-                            }
-                            else
                             {
-                                Console.WriteLine("Dzięki za grę! Do zobaczenia!");
-                                Console.ReadLine();
+                            Console.Clear();
+                            Console.ForegroundColor= ConsoleColor.Yellow;
+                            Console.WriteLine("🎉 Zwycięstwo! Pokonałeś Potwora z Bagien! 🎉");
+                            Console.WriteLine("Czy chcesz spróbować ponownie? (T/N) \n lub \n");
+                            Console.WriteLine("Naciśnij Enter, aby zakończyć...");
+                            string restart = Console.ReadLine().ToUpper();
+                            if (restart == "T")
+{ 
+                            
                             }
-                        Console.Clear();
-                        break;
-                        }
+                            Console.Clear();
+                            break;
+                            }
                         Console.WriteLine($"Potworowi zostało jescze: {monsterHP}.pkt zdrowia.");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
@@ -82,19 +76,8 @@ namespace msLearn // Note: actual namespace depends on the project name.
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("💀 Bohater poległ w walce... 💀");
                             Console.WriteLine("Przegrana!");
-                            Console.WriteLine("Czy chcesz spróbować ponownie? (T/N) \n lub \n");
                             Console.WriteLine("Naciśnij Enter, aby zakończyć...");
-                            string restart = Console.ReadLine().ToUpper();
-
-                            if (restart == "T")
-                            {
-                                Main(args);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Dzięki za grę! Do zobaczenia!");
-                                Console.ReadLine();
-                            }
+                            Console.ReadLine();
                             Console.Clear();
                             break;
                         }
