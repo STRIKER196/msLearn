@@ -27,32 +27,45 @@ namespace msLearn // Note: actual namespace depends on the project name.
             Console.WriteLine($"Znalazłeś przeciwnika. Jest to 'Potwór z Bagien'. Wygląda na to, że ma {monsterHP} pkt.życia");
             Console.WriteLine("----WALKA SIĘ ROZPOCZEŁA----");
 
+            Random rand = new Random();
             do
             {
                 
                 for (int round = 0; heroHP >= 0; round++)
                 {
-                    int diceThrow = new Random().Next(1, 3);
-                    int randHeroDmg = new Random().Next(1, 7);
-                    int randMonsterDmg = new Random().Next(1, 7) + difficultLevel;
+                    int diceThrow = rand.Next(1, 3);
+                    int randHeroDmg = rand.Next(1, 7);
+                    int randMonsterDmg = rand.Next(1, 7) + difficultLevel;
                     Console.WriteLine($"\nRunda: {round+1}\n");
-
+                    Console.WriteLine("1 - Bohater  2 - Potwór");
+                    Console.WriteLine($"Rzut kostką: {diceThrow} : 1 - Bohater  2 - Potwór\n\n");
                     if (diceThrow == 1)
                     { 
                         Console.WriteLine("W tej rundzie Pierwszy atakuje: Bohater");
                         Console.ForegroundColor = ConsoleColor.Green;
-                        monsterHP = (monsterHP - randHeroDmg);
+                        monsterHP -= randHeroDmg;
                         Console.WriteLine($"Bohater zadał {randHeroDmg}.pkt obrażeń.");
                         if(monsterHP <= 0)
-                            {
-                            Console.Clear();
-                            Console.ForegroundColor= ConsoleColor.Yellow;
-                            Console.WriteLine("'Potwór z Bagien; zdechł!\n\n");
-                            Console.WriteLine("Wygrana!");
-                            Console.ReadLine() ;
-                            Console.Clear();
-                            break;
+                        {
+                        Console.Clear();
+                        Console.ForegroundColor= ConsoleColor.Yellow;
+                        Console.WriteLine("🎉 Zwycięstwo! Pokonałeś Potwora z Bagien! 🎉");
+                        Console.WriteLine("Czy chcesz spróbować ponownie? (T/N) \n lub \n");
+                        Console.WriteLine("Naciśnij Enter, aby zakończyć...");
+                        string restart = Console.ReadLine().ToUpper();
+
+                            if (restart == "T")
+                            { 
+                                Main(args);
                             }
+                            else
+                            {
+                                Console.WriteLine("Dzięki za grę! Do zobaczenia!");
+                                Console.ReadLine();
+                            }
+                        Console.Clear();
+                        break;
+                        }
                         Console.WriteLine($"Potworowi zostało jescze: {monsterHP}.pkt zdrowia.");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
@@ -62,14 +75,26 @@ namespace msLearn // Note: actual namespace depends on the project name.
                     { 
                         Console.WriteLine("W tej rundzie atakuje: Potwór");
                         Console.ForegroundColor = ConsoleColor.Red;
-                        heroHP = heroHP - randMonsterDmg;
+                        heroHP -= randMonsterDmg;
                         if (heroHP <= 0)
                         {
                             Console.Clear() ;
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("'Bohater'; zdechł!\n\n");
+                            Console.WriteLine("💀 Bohater poległ w walce... 💀");
                             Console.WriteLine("Przegrana!");
-                            Console.ReadLine();
+                            Console.WriteLine("Czy chcesz spróbować ponownie? (T/N) \n lub \n");
+                            Console.WriteLine("Naciśnij Enter, aby zakończyć...");
+                            string restart = Console.ReadLine().ToUpper();
+
+                            if (restart == "T")
+                            {
+                                Main(args);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Dzięki za grę! Do zobaczenia!");
+                                Console.ReadLine();
+                            }
                             Console.Clear();
                             break;
                         }
@@ -79,7 +104,7 @@ namespace msLearn // Note: actual namespace depends on the project name.
                         Console.ReadLine();
                     }
                 }
-            }while(monsterHP <= 0);
+            }while(heroHP > 0 && monsterHP > 0);
         }
     }
 }
