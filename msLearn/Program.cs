@@ -26,9 +26,10 @@ namespace msLearn // Note: actual namespace depends on the project name.
 
             // TODO: Convert the if-elseif-else construct to a switch statement
 
-            switch
+            switch ()
             {
-                case: 
+                case:
+                    break;
             }
             // create some initial ourAnimals array entries
             for (int i = 0; i < maxPets; i++)
