@@ -16,9 +16,7 @@ namespace msLearn
             string animalPersonalityDescription = "";
             string animalNickname = "";
 
-            int maxPets = 8;
-            string? readResult;
-            string menuSelection = "";
+            int maxPets = 5;
 
             string[,] ourAnimals = new string[maxPets, 6];
 
@@ -79,7 +77,63 @@ namespace msLearn
                 ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
             }
 
+            ShowMenuProgram();
+            string menuSelection = GetMenuOption();
 
+            Console.Write("You selected menu option");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($" {menuSelection}.");
+            Console.ResetColor();
+            Console.WriteLine("Press the Enter key to continue");
+
+            for (int i = 0; i < maxPets; i++)
+            {
+                Console.WriteLine("+--------------------------+------------------------------------------+");
+                Console.WriteLine($"|\tProperty\t\t\t\t\t\tindex: i ={i}\t\t|\tValue\t\t\t\t|");
+                Console.WriteLine("+--------------------------+------------------------------------------+");
+
+                for (int j = 0; j < 6; j++)
+                {
+                    Console.WriteLine("+--------------------------+------------------------------------------+");
+                    Console.WriteLine($"|{ourAnimals[i, j]}");
+                    Console.WriteLine("+--------------------------+------------------------------------------+");
+                }
+                Console.WriteLine("");
+                ourAnimals[3, 2] = "12";
+            }
+
+            //ourAnimals[i, 0] = "ID #: " + animalID;
+            //ourAnimals[i, 1] = "Species: " + animalSpecies;
+            //ourAnimals[i, 2] = "Age: " + animalAge;
+            //ourAnimals[i, 3] = "Nickname: " + animalNickname;
+            //ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+            //ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
+            // pause code execution
+        }
+        public static string GetMenuOption()
+        {
+            string readResult = null;
+            bool correctReadResultValue = false;
+
+            while (!correctReadResultValue)
+            {
+                Console.WriteLine("\n Wprowadz wartość pozycji, którą ma wykonać program");
+                readResult = Console.ReadLine()?.ToLower() ?? "";
+                if (readResult != null && !string.IsNullOrWhiteSpace(readResult))
+                {
+                    correctReadResultValue = true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Program nie rozpoznał lub nie wprowadzono wartości.");
+                    Console.ResetColor();
+                }
+            }
+            return readResult;
+        }
+        public static void ShowMenuProgram()
+        {
             Console.Clear();
 
             Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:\n");
@@ -96,50 +150,8 @@ namespace msLearn
             Console.WriteLine("| 7.       | Display all cats with a specified characteristic                  |");
             Console.WriteLine("| 8.       | Display all dogs with a specified characteristic                  |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu                          |");
+            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu                        |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-
-            Console.WriteLine("\nEnter your selection number (or type Exit to exit the program)");
-
-            bool correctReadResultValue = false;
-
-            while (!correctReadResultValue)
-            {
-                readResult = Console.ReadLine()?.ToLower() ?? "";
-                if (readResult != null && !string.IsNullOrWhiteSpace(readResult)){correctReadResultValue = true;}
-            }
-
-            Console.Write("You selected menu option");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($" {menuSelection}.");
-            Console.ResetColor();
-            Console.WriteLine("Press the Enter key to continue");
-
-            for (int i = 0; i < 8; i++)
-            {
-                Console.WriteLine("+--------------------------+------------------------------------------+");
-                Console.WriteLine($"|\tProperty\t\t\t\t\t\tindex: i ={i}\t\t|\tValue\t\t\t\t|");
-                Console.WriteLine("+--------------------------+------------------------------------------+");
-
-                for (int j = 0; j < 5; j++)
-                {
-                    Console.WriteLine("+--------------------------+------------------------------------------+");
-                    Console.WriteLine($"|{ourAnimals[i, j]}");
-                    Console.WriteLine("+--------------------------+------------------------------------------+");
-                }
-                Console.WriteLine("");
-
-            }
-
-            //ourAnimals[i, 0] = "ID #: " + animalID;
-            //ourAnimals[i, 1] = "Species: " + animalSpecies;
-            //ourAnimals[i, 2] = "Age: " + animalAge;
-            //ourAnimals[i, 3] = "Nickname: " + animalNickname;
-            //ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-            //ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
-
-            // pause code execution
-            readResult = Console.ReadLine();
         }
     }
 }
