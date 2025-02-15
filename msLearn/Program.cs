@@ -101,13 +101,18 @@ namespace msLearn
 
             Console.WriteLine("\nEnter your selection number (or type Exit to exit the program)");
 
-            readResult = Console.ReadLine().ToLower() ?? "";
-            if (readResult != null && int.TryParse().readRes)
+            bool correctReadResultValue = false;
+
+            while (!correctReadResultValue)
             {
-                menuSelection = readResult.ToLower();
+                readResult = Console.ReadLine().ToLower() ?? "";
+                if (readResult != null && !string.IsNullOrWhiteSpace(readResult)){correctReadResultValue = true;}
             }
 
-            Console.WriteLine($"You selected menu option {menuSelection}.");
+            Console.Write("You selected menu option");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($" {menuSelection}.");
+            Console.ResetColor();
             Console.WriteLine("Press the Enter key to continue");
 
 
