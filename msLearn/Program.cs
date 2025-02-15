@@ -83,30 +83,23 @@ namespace msLearn
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" {menuSelection}.");
             Console.ResetColor();
-            Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+            Console.WriteLine("Wciśnij \"Enter\", aby rozpocząć");
             Console.ReadKey();
-            Console.Clear();
 
-            for (int i = 0; i < maxPets; i++)
+            switch (menuSelection)
             {
-                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                Console.WriteLine($"|     Pozycja              | index iteracji: i ={i}                                                  |");
-                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-
-                for (int j = 0; j < 6; j++)
-                {
-                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                    Console.WriteLine($"|{ourAnimals[i, j]}");
-                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                }
-                int page = i + 1;
-                Console.WriteLine("\n");
-                Console.WriteLine($"Strona: {page}");
-                Console.WriteLine($"[{page}] of [{ourAnimals.GetLength(0)}]");
-                Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
-                Console.ReadLine();
-                Console.Clear();
+                case "1":
+                    ShowAllItemInArray(maxPets,ourAnimals);
+                    break;
+                deafault:
+                    
+                    Console.WriteLine("Soft in work");
+                    break;
             }
+
+
+
+
 
             //ourAnimals[i, 0] = "ID #: " + animalID;
             //ourAnimals[i, 1] = "Species: " + animalSpecies;
@@ -124,7 +117,7 @@ namespace msLearn
             while (!correctReadResultValue)
             {
                 Console.WriteLine("\nWprowadz wartość pozycji, którą ma wykonać program");
-                readResult = Console.ReadLine() ?? "";
+                readResult = Console.ReadLine() ?? "".Trim().Replace(".","");
                 if (readResult != null && !string.IsNullOrWhiteSpace(readResult))
                 {
                     if (readResult == "Exit")
@@ -178,7 +171,7 @@ namespace msLearn
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.WriteLine("| Pozycja  | Opis działania                                                    |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| 1.       | List all of our current pet information                           |");
+            Console.WriteLine("| 1.       | Wypisz wszystkie zarejestrowane zwięrzęta w bazie                 |");
             Console.WriteLine("| 2.       | Add a new animal friend to the ourAnimals array                   |");
             Console.WriteLine("| 3.       | Ensure animal ages and physical descriptions are complete         |");
             Console.WriteLine("| 4.       | Ensure animal nicknames and personality descriptions are complete |");
@@ -195,6 +188,31 @@ namespace msLearn
             string errorMessage = "Zła wartość koloru wysłana do Metody ConsoleColorChange()";
             if (Enum.TryParse(color,true, out ConsoleColor consoleColor)) {Console.ForegroundColor = consoleColor; return color; }
             return errorMessage;
+        }
+        public static void ShowAllItemInArray(int pets, string[,] animals)
+        {
+            Console.Clear();
+
+            for (int i = 0; i < pets; i++)
+            {
+                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
+                Console.WriteLine($"|     Pozycja              | index iteracji: i ={i+1}                                                  |");
+                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
+
+                for (int j = 0; j < 6; j++)
+                {
+                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
+                    Console.WriteLine($"|{animals[i, j]}");
+                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
+                }
+                int page = i + 1;
+                Console.WriteLine("\n");
+                Console.WriteLine($"Strona: {page}");
+                Console.WriteLine($"[{page}] of [{animals.GetLength(0)}]");
+                Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+                Console.ReadLine();
+                Console.Clear();
+            }
         }
     }
 }
