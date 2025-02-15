@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
@@ -6,6 +7,12 @@ namespace msLearn
 {
     internal class Program
     {
+        public static string ChangeTextColor(string color)
+        {
+            string errorMessage = "Zła wartość koloru wysłana do Metody ConsoleColorChange()";
+            if (Enum.TryParse(color, true, out ConsoleColor consoleColor)) { Console.ForegroundColor = consoleColor; return color; }
+            return errorMessage;
+        }
         static void Main(string[] args)
         {
             //zmienne wspisywane do tablicy
@@ -58,6 +65,15 @@ namespace msLearn
                     animalPersonalityDescription = "";
                     animalNickname = "";
                 }
+                else if (i == 4)
+                {
+                    animalSpecies = "parrot";
+                    animalID = "p5";
+                    animalAge = "?";
+                    animalPhysicalDescription = "";
+                    animalPersonalityDescription = "";
+                    animalNickname = "";
+                }
                 else
                 {
                     animalSpecies = "";
@@ -79,6 +95,7 @@ namespace msLearn
             ShowMenuProgram();
             string menuSelection = GetMenuOption();
 
+
             Console.Write("Wybrano pozycję:");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" {menuSelection}.");
@@ -89,25 +106,16 @@ namespace msLearn
             switch (menuSelection)
             {
                 case "1":
-                    ShowAllItemInArray(maxPets,ourAnimals);
+                    ShowAllItemsInArray(ourAnimals);
+                    break;
+                case "2":
+                    GetNewAnimalRecord(maxPets, ourAnimals, animalID);
                     break;
                 deafault:
                     
                     Console.WriteLine("Soft in work");
                     break;
             }
-
-
-
-
-
-            //ourAnimals[i, 0] = "ID #: " + animalID;
-            //ourAnimals[i, 1] = "Species: " + animalSpecies;
-            //ourAnimals[i, 2] = "Age: " + animalAge;
-            //ourAnimals[i, 3] = "Nickname: " + animalNickname;
-            //ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-            //ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
-            // pause code execution
         }
         public static string GetMenuOption()
         {
@@ -146,7 +154,7 @@ namespace msLearn
                     }
                     else
                     {
-                        ConsoleColorChange("Magenta");
+                        ChangeTextColor("Magenta");
                         Console.WriteLine("Program nie rozpoznał wartości.");
                         Console.ResetColor();
                     }
@@ -154,7 +162,7 @@ namespace msLearn
                 }
                 else
                 {
-                    ConsoleColorChange("Red");
+                    ChangeTextColor("Red");
                     Console.WriteLine("Program nie rozpoznał wartości lub wciśnieto Enter.");
                     Console.ResetColor();
                 }
@@ -164,6 +172,7 @@ namespace msLearn
         }
         public static void ShowMenuProgram()
         {
+            Console.ResetColor();
             Console.Clear();
 
             Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:\n");
@@ -180,39 +189,166 @@ namespace msLearn
             Console.WriteLine("| 7.       | Display all cats with a specified characteristic                  |");
             Console.WriteLine("| 8.       | Display all dogs with a specified characteristic                  |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu                        |");
+            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu                          |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
+            Console.ResetColor();
         }
-        public static string ConsoleColorChange(string color)
+
+        public static void ShowAllItemsInArray(string[,] animals)
         {
-            string errorMessage = "Zła wartość koloru wysłana do Metody ConsoleColorChange()";
-            if (Enum.TryParse(color,true, out ConsoleColor consoleColor)) {Console.ForegroundColor = consoleColor; return color; }
-            return errorMessage;
-        }
-        public static void ShowAllItemInArray(int pets, string[,] animals)
-        {
+            Console.ResetColor();
             Console.Clear();
 
-            for (int i = 0; i < pets; i++)
+            for (int i = 0; i < animals.GetLength(0); i++)
             {
+                int page = i + 1;
+
                 Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                Console.WriteLine($"|     Pozycja              | index iteracji: i ={i+1}                                                  |");
+                Console.WriteLine($"|     Pozycja              | index iteracji: i ={page}                                                  |");
                 Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
 
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < animals.GetLength(1); j++)
                 {
                     Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
                     Console.WriteLine($"|{animals[i, j]}");
                     Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
                 }
-                int page = i + 1;
+
                 Console.WriteLine("\n");
                 Console.WriteLine($"Strona: {page}");
                 Console.WriteLine($"[{page}] of [{animals.GetLength(0)}]");
                 Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
                 Console.ReadLine();
+                Console.ResetColor();
                 Console.Clear();
             }
+        }
+        public static string GetNewAnimalRecord(int maxPets, string[,] newRecordInArray, string animalID)
+        {
+            Console.ResetColor();
+            string readResult = null;
+
+            Console.Clear();
+            ChangeTextColor("Blue");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.WriteLine($"|     Tryb edycji                                                                                  |");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.WriteLine($"|     Do edycji możliwe jest MAX: {maxPets} pozycji.                                                       |");
+            Console.WriteLine($"|     Aby edytować wpisy należy podać numer pozycji ID wpisu.                                      |");
+            Console.WriteLine($"|     Dostępne pozycję to: 1, 2, 3, 4, 5, 6.                                                       |");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            ChangeTextColor("Blue");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.WriteLine($"|     Wpisz \"Wróć\", się aby cofnąć się do Menu.                                                    |");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.ResetColor();
+            Console.WriteLine("\nPodaj ID dla popozycji.\nID: ");
+
+            readResult = Console.ReadLine() ?? "".Trim();
+
+            bool editData = true;
+            while (editData)
+            {            //ourAnimals[i, 0] = "ID #: " + animalID;
+                         //ourAnimals[i, 1] = "Species: " + animalSpecies;
+                         //ourAnimals[i, 2] = "Age: " + animalAge;
+                         //ourAnimals[i, 3] = "Nickname: " + animalNickname;
+                         //ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+                         //ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
+                if (readResult != null && !string.IsNullOrWhiteSpace(readResult))
+                {
+                    if (readResult == "1" || readResult == "2" ||
+                        readResult == "3" || readResult == "4" ||
+                        readResult == "5" || readResult == "6")
+                        {
+                            int.TryParse(readResult, out int x);
+                            x = x + 1;
+                            string trim = "";
+                            char.TryParse(trim, out char c);
+
+                            Console.Clear();
+                            ChangeTextColor("Blue");
+                            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+                            Console.WriteLine($"|     Tryb edycji   -->  Pozycja ID {readResult} <{newRecordInArray[x,1].Replace("Species: ","")}>                                     |");
+                            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+                            Console.WriteLine($"|     Wpisz \"Wróć\", aby się cofnąć się do wyboru ID.                                             |");
+                            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+                            GetIdValue(animalID);
+
+                        }
+                        else if (readResult == "Wróć")
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write("Wybrano pozycję:");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($" {readResult}");
+                            Console.Write("Program się zamyka tryb");
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.WriteLine("Edycji\n\n");
+                            Console.ResetColor();
+                            Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+                            Console.ReadKey();
+                            Console.ResetColor();
+                            continue;
+                        }
+                        else
+                        {
+                            ChangeTextColor("Red");
+                            Console.WriteLine($"Podano wartości z poza zakresu lub wprowadzono niewłaściwą wartość.\nPodana wartość: {readResult}");
+                            Console.ResetColor();
+                        }
+                }
+            }
+            string GetIdValue(string id)
+            {
+                bool correctInput = false;
+                bool goBack = false;
+                if (goBack == false)
+                {
+                    while (correctInput = false)
+                    {
+                        Console.WriteLine("\n");
+                        Console.WriteLine("ID: ");
+                        id = Console.ReadLine() ?? "".Trim();
+                        if (id != null && !string.IsNullOrWhiteSpace(id))
+                        {
+                            correctInput = true;
+
+                        }
+                        else if (id == "Wróć")
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write("Wprowadzono:");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($" {id}");
+                            Console.Write("Powrót do wyboru pozycji z Bazy");
+                            Console.ResetColor();
+                            Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+                            Console.ReadKey();
+                            goBack = true;
+                            Console.ResetColor();
+                            break;
+                        }
+                        else
+                        {
+                            ChangeTextColor("Red");
+                            Console.WriteLine($"Wprowadzono niewłaściwą wartość.\nPodana wartość: {readResult}");
+                            Console.ResetColor();
+                            correctInput = false;
+                            continue;
+                        }
+                    }
+                }
+                else
+                {
+                    id = "Wróć"; 
+                }
+                return id;
+            }
+
         }
     }
 }
