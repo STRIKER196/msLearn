@@ -261,61 +261,65 @@ namespace msLearn
                     if (readResult == "1" || readResult == "2" ||
                         readResult == "3" || readResult == "4" ||
                         readResult == "5" || readResult == "6")
-                        {
-                            int.TryParse(readResult, out int x);
-                            x = x + 1;
-                            string trim = "";
-                            char.TryParse(trim, out char c);
+                    {
+                        int.TryParse(readResult, out int x);
+                        x = x + 1;
+                        string newAnimalId;
+                        Console.Clear();
+                        ChangeTextColor("Blue");
+                        Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+                        Console.WriteLine($"|     Tryb edycji   -->  Pozycja ID {readResult} < {newRecordInArray[x, 1].Replace("Species: ", "")}>                                     |");
+                        Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+                        Console.WriteLine($"|     Wpisz \"Wróć\", aby się cofnąć się do wyboru ID.                                             |");
+                        Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+                        newAnimalId = GetIdValue(animalID);
+                        int.TryParse(newAnimalId, out int y);
+                        Console.WriteLine(newRecordInArray[x,y]);
 
-                            Console.Clear();
-                            ChangeTextColor("Blue");
-                            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-                            Console.WriteLine($"|     Tryb edycji   -->  Pozycja ID {readResult} <{newRecordInArray[x,1].Replace("Species: ","")}>                                     |");
-                            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-                            Console.WriteLine($"|     Wpisz \"Wróć\", aby się cofnąć się do wyboru ID.                                             |");
-                            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-                            GetIdValue(animalID);
-
-                        }
-                        else if (readResult == "Wróć")
-                        {
-                            Console.Clear();
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.Write("Wybrano pozycję:");
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine($" {readResult}");
-                            Console.Write("Program się zamyka tryb");
-                            Console.ForegroundColor = ConsoleColor.Blue;
-                            Console.WriteLine("Edycji\n\n");
-                            Console.ResetColor();
-                            Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
-                            Console.ReadKey();
-                            Console.ResetColor();
-                            continue;
-                        }
-                        else
-                        {
-                            ChangeTextColor("Red");
-                            Console.WriteLine($"Podano wartości z poza zakresu lub wprowadzono niewłaściwą wartość.\nPodana wartość: {readResult}");
-                            Console.ResetColor();
-                        }
+                    }
+                    else if (readResult == "Wróć")
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("Wybrano pozycję:");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($" {readResult}");
+                        Console.Write("Program się zamyka tryb");
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Edycji\n\n");
+                        Console.ResetColor();
+                        Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+                        Console.ReadKey();
+                        Console.ResetColor();
+                        continue;
+                    }
+                    else
+                    {
+                        ChangeTextColor("Red");
+                        Console.WriteLine($"Podano wartości z poza zakresu lub wprowadzono niewłaściwą wartość.\nPodana wartość: {readResult}");
+                        Console.ResetColor();
+                    }
+                    
                 }
             }
             string GetIdValue(string id)
             {
                 bool correctInput = false;
                 bool goBack = false;
-                if (goBack == false)
+                if (!goBack)
                 {
-                    while (correctInput = false)
+                    while (!correctInput)
                     {
                         Console.WriteLine("\n");
                         Console.WriteLine("ID: ");
                         id = Console.ReadLine() ?? "".Trim();
                         if (id != null && !string.IsNullOrWhiteSpace(id))
                         {
+                            Console.ResetColor();
+                            Console.WriteLine($"Wprowadzono {id}");
+                            
                             correctInput = true;
-
+                            break;
                         }
                         else if (id == "Wróć")
                         {
@@ -348,7 +352,7 @@ namespace msLearn
                 }
                 return id;
             }
-
+            return "";
         }
     }
 }
