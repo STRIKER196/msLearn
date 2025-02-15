@@ -105,7 +105,7 @@ namespace msLearn
 
             while (!correctReadResultValue)
             {
-                readResult = Console.ReadLine().ToLower() ?? "";
+                readResult = Console.ReadLine()?.ToLower() ?? "";
                 if (readResult != null && !string.IsNullOrWhiteSpace(readResult)){correctReadResultValue = true;}
             }
 
