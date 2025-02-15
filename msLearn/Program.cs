@@ -31,43 +31,43 @@ namespace msLearn
             {
                 if (i == 0)
                 {
-                    animalSpecies = "dog";
+                    animalSpecies = "Pies";
                     animalID = "d1";
                     animalAge = "2";
-                    animalPhysicalDescription = "medium sized cream colored female golden retriever weighing about 65 pounds. housebroken.";
-                    animalPersonalityDescription = "loves to have her belly rubbed and likes to chase her tail. gives lots of kisses.";
+                    animalPhysicalDescription = "Średniej wielkości, kremowa, samica golden retriever ważąca około 65 funtów. Nauczona czystości w domu.";
+                    animalPersonalityDescription = "Uwielbia, gdy drapie się ją po brzuchu i lubi gonić swój ogon. Daje mnóstwo buziaków.";
                     animalNickname = "lola";
                 }
                 else if (i == 1)
                 {
-                    animalSpecies = "dog";
+                    animalSpecies = "Pies";
                     animalID = "d2";
                     animalAge = "9";
-                    animalPhysicalDescription = "large reddish-brown male golden retriever weighing about 85 pounds. housebroken.";
-                    animalPersonalityDescription = "loves to have his ears rubbed when he greets you at the door, or at any time! loves to lean-in and give doggy hugs.";
+                    animalPhysicalDescription = "Duży, czerwonobrązowy samiec golden retriever ważący około 85 funtów. Nauczony czystości w domu.";
+                    animalPersonalityDescription = "Uwielbia, gdy pociera się mu uszy, gdy wita cię przy drzwiach – albo w każdej chwili! Lubi się przytulać i dawać psie uściski.";
                     animalNickname = "loki";
                 }
                 else if (i == 2)
                 {
-                    animalSpecies = "cat";
+                    animalSpecies = "Kot";
                     animalID = "c3";
                     animalAge = "1";
-                    animalPhysicalDescription = "small white female weighing about 8 pounds. litter box trained.";
-                    animalPersonalityDescription = "friendly";
+                    animalPhysicalDescription = "Mała, biała samica ważąca około 8 funtów. Nauczona korzystania z kuwety.";
+                    animalPersonalityDescription = "Przyjazna.";
                     animalNickname = "Puss";
                 }
                 else if (i == 3)
                 {
-                    animalSpecies = "cat";
+                    animalSpecies = "Kot";
                     animalID = "c4";
                     animalAge = "?";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
+                    animalPhysicalDescription = "Mały, zwinny kot o miękkim futrze, który uwielbia drzemki na słońcu i zabawy z piórkami. Ciekawski, towarzyski i zawsze gotowy na przytulanie.";
+                    animalPersonalityDescription = "Ma miękkie, puszyste futro, jest zwinny i szybki, ciekawski i towarzyski, uwielbia drzemki na słońcu, lubi zabawy z piórkami, jest przyjazny i skory do przytulania.";
                     animalNickname = "";
                 }
                 else if (i == 4)
                 {
-                    animalSpecies = "parrot";
+                    animalSpecies = "Papuga";
                     animalID = "p5";
                     animalAge = "?";
                     animalPhysicalDescription = "";
@@ -107,14 +107,17 @@ namespace msLearn
             {
                 case "1":
                     ShowAllItemsInArray(ourAnimals);
-                    break;
+                break;
                 case "2":
                     GetNewAnimalRecord(maxPets, ourAnimals, animalID);
-                    break;
-                deafault:
-                    
-                    Console.WriteLine("Soft in work");
-                    break;
+                break;
+                case "3":
+                    Console.WriteLine("Oprogramowanie w trakcie pracy");
+                break;
+                case "4":
+                    Console.WriteLine("Oprogramowanie w trakcie pracy");
+                break;
+            
             }
         }
         public static string GetMenuOption()
@@ -180,16 +183,12 @@ namespace msLearn
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.WriteLine("| Pozycja  | Opis działania                                                    |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| 1.       | Wypisz wszystkie zarejestrowane zwięrzęta w bazie                 |");
-            Console.WriteLine("| 2.       | Add a new animal friend to the ourAnimals array                   |");
-            Console.WriteLine("| 3.       | Ensure animal ages and physical descriptions are complete         |");
-            Console.WriteLine("| 4.       | Ensure animal nicknames and personality descriptions are complete |");
-            Console.WriteLine("| 5.       | Edit an animal’s age                                              |");
-            Console.WriteLine("| 6.       | Edit an animal’s personality description                          |");
-            Console.WriteLine("| 7.       | Display all cats with a specified characteristic                  |");
-            Console.WriteLine("| 8.       | Display all dogs with a specified characteristic                  |");
+            Console.WriteLine("| 1.       | Wypisz wszystkie zarejestrowane zwięrzęta w bazie.                |");
+            Console.WriteLine("| 2.       | Tryb Edycji.                                                      |");
+            Console.WriteLine("| 3.       | Wyświetl wybrane wszystkie zwierzęta o danym charakterze.         |");
+            Console.WriteLine("| 4.       | Sprawdź nieuzupełnione pola w Archiwum.                           |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu                          |");
+            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu.                         |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.ResetColor();
         }
@@ -201,10 +200,10 @@ namespace msLearn
 
             for (int i = 0; i < animals.GetLength(0); i++)
             {
-                int page = i + 1;
+                int pageCounter = i + 1;
 
                 Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                Console.WriteLine($"|     Pozycja              | index iteracji: i ={page}                                                  |");
+                Console.WriteLine($"|     Pozycja              | index iteratora: i ={i}                                                  |");
                 Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
 
                 for (int j = 0; j < animals.GetLength(1); j++)
@@ -215,8 +214,8 @@ namespace msLearn
                 }
 
                 Console.WriteLine("\n");
-                Console.WriteLine($"Strona: {page}");
-                Console.WriteLine($"[{page}] of [{animals.GetLength(0)}]");
+                Console.WriteLine($"Strona: {pageCounter}");
+                Console.WriteLine($"[{pageCounter}] of [{animals.GetLength(0)}]");
                 Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
                 Console.ReadLine();
                 Console.ResetColor();
@@ -259,8 +258,7 @@ namespace msLearn
                 if (readResult != null && !string.IsNullOrWhiteSpace(readResult))
                 {
                     if (readResult == "1" || readResult == "2" ||
-                        readResult == "3" || readResult == "4" ||
-                        readResult == "5" || readResult == "6")
+                        readResult == "3" || readResult == "4" )
                     {
                         int.TryParse(readResult, out int x);
                         x = x + 1;
@@ -273,8 +271,7 @@ namespace msLearn
                         Console.WriteLine($"|     Wpisz \"Wróć\", aby się cofnąć się do wyboru ID.                                             |");
                         Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
                         newAnimalId = GetIdValue(animalID);
-                        int.TryParse(newAnimalId, out int y);
-                        Console.WriteLine(newRecordInArray[x,y]);
+
 
                     }
                     else if (readResult == "Wróć")
