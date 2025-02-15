@@ -2,144 +2,123 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
-namespace msLearn 
+namespace msLearn // Note: actual namespace depends on the project name.
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            //zmienne wspisywane do tablicy
-            string animalSpecies = "";
-            string animalID = "";
-            string animalAge = "";
-            string animalPhysicalDescription = "";
-            string animalPersonalityDescription = "";
-            string animalNickname = "";
+            string? readUserValue;
+            bool dataInput = false;
+            int tryTaskOneCount = 1;
+            int userReadText;
 
-            int maxPets = 8;
-            string? readResult;
-            string menuSelection = "";
-
-            string[,] ourAnimals = new string[maxPets, 6];
-
-            //wartości zmiennych wpisane do tablicy
-            for (int i = 0; i < maxPets; i++)
+            Console.WriteLine("Podaj wartość, która mieście się w zakresie liczbowym 5-10");
+            do
             {
-                if (i == 0)
+                Console.WriteLine($"Próba nr: {tryTaskOneCount}");
+                readUserValue = Console.ReadLine();
+                if (readUserValue != null) // założenie ćwiczenia wiec musi zostać
                 {
-                    animalSpecies = "dog";
-                    animalID = "d1";
-                    animalAge = "2";
-                    animalPhysicalDescription = "medium sized cream colored female golden retriever weighing about 65 pounds. housebroken.";
-                    animalPersonalityDescription = "loves to have her belly rubbed and likes to chase her tail. gives lots of kisses.";
-                    animalNickname = "lola";
-                }
-                else if (i == 1)
-                {
-                    animalSpecies = "dog";
-                    animalID = "d2";
-                    animalAge = "9";
-                    animalPhysicalDescription = "large reddish-brown male golden retriever weighing about 85 pounds. housebroken.";
-                    animalPersonalityDescription = "loves to have his ears rubbed when he greets you at the door, or at any time! loves to lean-in and give doggy hugs.";
-                    animalNickname = "loki";
-                }
-                else if (i == 2)
-                {
-                    animalSpecies = "cat";
-                    animalID = "c3";
-                    animalAge = "1";
-                    animalPhysicalDescription = "small white female weighing about 8 pounds. litter box trained.";
-                    animalPersonalityDescription = "friendly";
-                    animalNickname = "Puss";
-                }
-                else if (i == 3)
-                {
-                    animalSpecies = "cat";
-                    animalID = "c4";
-                    animalAge = "?";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
-                    animalNickname = "";
-                }
-                else
-                {
-                    animalSpecies = "";
-                    animalID = "";
-                    animalAge = "";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
-                    animalNickname = "";
+                    if (int.TryParse(readUserValue, out userReadText))
+                    {
+                        if (userReadText > 5 && userReadText < 10)
+                        {
+
+                            Console.Write($"Twoja wartość to: \"");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write($"{readUserValue}");
+                            Console.ResetColor();
+                            Console.WriteLine("\" i jest poprawna.");
+                            dataInput = true;
+                        }
+                        else
+                        {
+                            Console.Write("Najwyraźniej twoja wartość jest nieprawidłowa.");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($" \"{readUserValue}\"");
+                            Console.ResetColor();
+                            Console.WriteLine("Przeczytaj instrukcję raz jeszcze i dostosuj się do niej.");
+                        }
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Twoja wartość nie składa się z liczb. Przeczytaj instrukcję raz jeszcze i dostosuj się do niej.");
+                        Console.ResetColor();
+                    }
                 }
 
-                ourAnimals[i, 0] = "ID #: " + animalID;
-                ourAnimals[i, 1] = "Species: " + animalSpecies;
-                ourAnimals[i, 2] = "Age: " + animalAge;
-                ourAnimals[i, 3] = "Nickname: " + animalNickname;
-                ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-                ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
-            }
+                tryTaskOneCount++;
+
+            } while (!dataInput);
+
+            Console.WriteLine("\n\nDruga część zadania");
+
+            string adm = "Administrator";
+            string man = "Kierownik";
+            string usr = "Użytkownik";
+            bool verify = false;
+            int tryTaskTwoCount = 1;
+            string role;
+
+            Console.WriteLine("Jaką role wykorzystujesz do działania programu");
+            Console.WriteLine($"Dostępne role to:\n{adm}\t{man}\t{usr}");
 
 
-            Console.Clear();
-
-            Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:\n");
-
-            Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| Pozycja  | Opis działania                                                    |");
-            Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| 1.       | List all of our current pet information                           |");
-            Console.WriteLine("| 2.       | Add a new animal friend to the ourAnimals array                   |");
-            Console.WriteLine("| 3.       | Ensure animal ages and physical descriptions are complete         |");
-            Console.WriteLine("| 4.       | Ensure animal nicknames and personality descriptions are complete |");
-            Console.WriteLine("| 5.       | Edit an animal’s age                                              |");
-            Console.WriteLine("| 6.       | Edit an animal’s personality description                          |");
-            Console.WriteLine("| 7.       | Display all cats with a specified characteristic                  |");
-            Console.WriteLine("| 8.       | Display all dogs with a specified characteristic                  |");
-            Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu                          |");
-            Console.WriteLine("+----------+-------------------------------------------------------------------+");
-
-            Console.WriteLine("\nEnter your selection number (or type Exit to exit the program)");
+            do
+            {
+                Console.WriteLine($"Próba weryfikacji roli nr: {tryTaskTwoCount}");
+                Console.WriteLine("Wprowadz nazwę roli");
+                role = Console.ReadLine()?.ToLower().Trim() ?? "";
+                Console.WriteLine("");
 
             readResult = Console.ReadLine().ToLower() ?? "";
-            if (readResult != null)
+            if (readResult != null && int.TryParse().readRes)
             {
                 menuSelection = readResult.ToLower();
             }
+            while (!verify);
+            Console.WriteLine("Logowanie udane :)");
+            Console.ReadLine();
+            // gotowe ćwicznie nie robiłemgo
+            Console.WriteLine("\n\nTrzecia część zadania");
 
-            Console.WriteLine($"You selected menu option {menuSelection}.");
-            Console.WriteLine("Press the Enter key to continue");
+            string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+            int stringsCount = myStrings.Length;
 
+            string myString = "";
+            int periodLocation = 0;
 
-            //List all 1
-
-
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < stringsCount; i++)
             {
+                myString = myStrings[i];
+                periodLocation = myString.IndexOf(".");
 
-                Console.WriteLine("+--------------------------+------------------------------------------+");
-                Console.WriteLine($"|\tProperty\t\t\t\t\t\tindex: i ={i}\t\t|\tValue\t\t\t\t|");
-                Console.WriteLine("+--------------------------+------------------------------------------+");
-                
-                for (j = 0; j < 5; j++)
+                string mySentence;
+
+                // extract sentences from each string and display them one at a time
+                while (periodLocation != -1)
                 {
-                    Console.WriteLine("+--------------------------+------------------------------------------+");
-                    Console.WriteLine($"|{ourAnimals[i, j]}");
-                    Console.WriteLine("+--------------------------+------------------------------------------+");
+
+                    // first sentence is the string value to the left of the period location
+                    mySentence = myString.Remove(periodLocation);
+
+                    // the remainder of myString is the string value to the right of the location
+                    myString = myString.Substring(periodLocation + 1);
+
+                    // remove any leading white-space from myString
+                    myString = myString.TrimStart();
+
+                    // update the comma location and increment the counter
+                    periodLocation = myString.IndexOf(".");
+
+                    Console.WriteLine(mySentence);
                 }
-                Console.WriteLine("");
 
+                mySentence = myString.Trim();
+                Console.WriteLine(mySentence);
             }
-
-            //ourAnimals[i, 0] = "ID #: " + animalID;
-            //ourAnimals[i, 1] = "Species: " + animalSpecies;
-            //ourAnimals[i, 2] = "Age: " + animalAge;
-            //ourAnimals[i, 3] = "Nickname: " + animalNickname;
-            //ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-            //ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
-
-            // pause code execution
-            readResult = Console.ReadLine();
         }
     }
 }
