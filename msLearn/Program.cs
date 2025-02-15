@@ -115,18 +115,13 @@ namespace msLearn
             Console.ResetColor();
             Console.WriteLine("Press the Enter key to continue");
 
-
-            //List all 1
-
-
             for (int i = 0; i < 8; i++)
             {
-
                 Console.WriteLine("+--------------------------+------------------------------------------+");
                 Console.WriteLine($"|\tProperty\t\t\t\t\t\tindex: i ={i}\t\t|\tValue\t\t\t\t|");
                 Console.WriteLine("+--------------------------+------------------------------------------+");
 
-                for (j = 0; j < 5; j++)
+                for (int j = 0; j < 5; j++)
                 {
                     Console.WriteLine("+--------------------------+------------------------------------------+");
                     Console.WriteLine($"|{ourAnimals[i, j]}");
