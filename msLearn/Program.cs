@@ -15,7 +15,6 @@ namespace msLearn
             string animalPhysicalDescription = "";
             string animalPersonalityDescription = "";
             string animalNickname = "";
-
             int maxPets = 5;
 
             string[,] ourAnimals = new string[maxPets, 6];
@@ -80,26 +79,33 @@ namespace msLearn
             ShowMenuProgram();
             string menuSelection = GetMenuOption();
 
-            Console.Write("You selected menu option");
+            Console.Write("Wybrano pozycję:");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" {menuSelection}.");
             Console.ResetColor();
-            Console.WriteLine("Press the Enter key to continue");
+            Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+            Console.ReadKey();
+            Console.Clear();
 
             for (int i = 0; i < maxPets; i++)
             {
-                Console.WriteLine("+--------------------------+------------------------------------------+");
-                Console.WriteLine($"|\tProperty\t\t\t\t\t\tindex: i ={i}\t\t|\tValue\t\t\t\t|");
-                Console.WriteLine("+--------------------------+------------------------------------------+");
+                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
+                Console.WriteLine($"|     Pozycja              | index iteracji: i ={i}                                                  |");
+                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
 
                 for (int j = 0; j < 6; j++)
                 {
-                    Console.WriteLine("+--------------------------+------------------------------------------+");
+                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
                     Console.WriteLine($"|{ourAnimals[i, j]}");
-                    Console.WriteLine("+--------------------------+------------------------------------------+");
+                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
                 }
-                Console.WriteLine("");
-                ourAnimals[3, 2] = "12";
+                int page = i + 1;
+                Console.WriteLine("\n");
+                Console.WriteLine($"Strona: {page}");
+                Console.WriteLine($"[{page}] of [{ourAnimals.GetLength(0)}]");
+                Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+                Console.ReadLine();
+                Console.Clear();
             }
 
             //ourAnimals[i, 0] = "ID #: " + animalID;
@@ -117,18 +123,49 @@ namespace msLearn
 
             while (!correctReadResultValue)
             {
-                Console.WriteLine("\n Wprowadz wartość pozycji, którą ma wykonać program");
-                readResult = Console.ReadLine()?.ToLower() ?? "";
+                Console.WriteLine("\nWprowadz wartość pozycji, którą ma wykonać program");
+                readResult = Console.ReadLine() ?? "";
                 if (readResult != null && !string.IsNullOrWhiteSpace(readResult))
                 {
+                    if (readResult == "Exit")
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("Wybrano pozycję:");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($" {readResult}");
+                        Console.WriteLine("Program się zamyka...\n\n");
+                        Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
+                        Console.ReadKey();
+                        Environment.Exit(0);
+
+                    }
+                    else if
+                    (
+                        // Przekazuje string w metodzie, ponieważ input moze być stringiem lub intem
+                        readResult == "1" || readResult == "2" ||
+                        readResult == "3" || readResult == "4" ||
+                        readResult == "5" || readResult == "6" ||
+                        readResult == "7" || readResult == "8"
+                    ) 
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        ConsoleColorChange("Magenta");
+                        Console.WriteLine("Program nie rozpoznał wartości.");
+                        Console.ResetColor();
+                    }
                     correctReadResultValue = true;
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Program nie rozpoznał lub nie wprowadzono wartości.");
+                    ConsoleColorChange("Red");
+                    Console.WriteLine("Program nie rozpoznał wartości lub wciśnieto Enter.");
                     Console.ResetColor();
                 }
+                correctReadResultValue = false;
             }
             return readResult;
         }
@@ -152,6 +189,12 @@ namespace msLearn
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu                        |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
+        }
+        public static string ConsoleColorChange(string color)
+        {
+            string errorMessage = "Zła wartość koloru wysłana do Metody ConsoleColorChange()";
+            if (Enum.TryParse(color,true, out ConsoleColor consoleColor)) {Console.ForegroundColor = consoleColor; return color; }
+            return errorMessage;
         }
     }
 }
