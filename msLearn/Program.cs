@@ -3,25 +3,23 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
+using msLearn2;
 
 namespace msLearn
 {
     internal class Program
     {
+        private static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
+
         public static string ChangeTextColor(string color)
         {
             string errorMessage = "Zła wartość koloru wysłana do Metody ConsoleColorChange()";
             if (Enum.TryParse(color, true, out ConsoleColor consoleColor)) { Console.ForegroundColor = consoleColor; return color; }
             return errorMessage;
         }
-
         static void Main(string[] args)
         {
-
-            string[,] ourAnimals = new string[6,6];
-
-            InsertSampleData(ourAnimals);
-
+            // TUTAJ RESTART
             ShowMenuProgram();
 
             string menuSelection = GetMenuOption();
@@ -36,10 +34,10 @@ namespace msLearn
             switch (menuSelection)
             {
                 case "1":
-                    ShowAllItemsInArray(ourAnimals);
+                    ShowAllItemsInArray();
                     break;
                 case "2":
-                    GetNewAnimalRecord(ourAnimals);
+                    ShowEditModeMenu();
                     break;
                 case "3":
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
@@ -54,13 +52,14 @@ namespace msLearn
 
         public static string GetMenuOption()
         {
+            
             string readResult = null;
             bool correctReadResultValue = false;
-
+            
             while (!correctReadResultValue)
             {
                 Console.WriteLine("\nWprowadz wartość pozycji, którą ma wykonać program");
-                readResult = Console.ReadLine() ?? "".Trim().Replace(".","");
+                readResult = (Console.ReadLine() ?? "").Trim().Replace(".","");
                 if (readResult != null && !string.IsNullOrWhiteSpace(readResult))
                 {
                     if (readResult == "Exit")
@@ -124,83 +123,56 @@ namespace msLearn
             Console.ResetColor();
         }
 
-        public static void ShowAllItemsInArray(string[,] animals)
+
+
+        //Wejście W tryb Edycji
+        public static void ShowEditModeMenu()
         {
-            Console.ResetColor();
             Console.Clear();
-
-            for (int i = 0; i < animals.GetLength(0); i++)
-            {
-                int pageCounter = i + 1;
-
-                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                Console.WriteLine($"|     Pozycja              | index iteratora: i ={i}                                                  |");
-                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-
-                for (int j = 0; j < animals.GetLength(1); j++)
-                {
-                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                    Console.WriteLine($"|{animals[i, j]}");
-                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                }
-
-                Console.WriteLine("\n");
-                Console.WriteLine($"Strona: {pageCounter}");
-                Console.WriteLine($"[{pageCounter}] of [{animals.GetLength(0)}]");
-                Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
-                Console.ReadLine();
-                Console.ResetColor();
-                Console.Clear();
-            }
-        }
-        public static string GetNewAnimalRecord(string[,] animalsDatabase)
-        {
             Console.ResetColor();
-            string userValueInput = null;
-            Console.Clear();
             ChangeTextColor("Blue");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|     Tryb edycji                                                                                  |");
+            Console.Write("|"); Console.ResetColor(); ChangeTextColor("DarkCyan"); Console.Write($"\tTryb edycji"); Console.ResetColor(); ChangeTextColor("Blue"); Console.WriteLine("                                                                                |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.ResetColor();
             ChangeTextColor("DarkBlue");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|     Do edycji możliwe jest MAX: {animalsDatabase.GetLength(0)} pozycji.                                                       |");
-            Console.WriteLine($"|     Aby edytować wpisy należy podać numer pozycji ID wpisu.                                      |");
-            Console.WriteLine($"|     Dostępne pozycję to: 1, 2, 3, 4, 5, 6.                                                       |");
+            Console.WriteLine($"|\tDo edycji możliwe jest MAX: {ourAnimals.GetLength(0)} pozycji.                                                     |");
+            Console.WriteLine($"|\tAby edytować wpisy należy podać numer pozycji ID w bazie.                                  |");
+            Console.WriteLine($"|\tDostępne pozycję ID to: 1, 2, 3, 4, 5, 6.                                                  |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.ResetColor();
             ChangeTextColor("Blue");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|     Wpisz \"Wróć\", się aby cofnąć się do Menu.                                                    |");
+            Console.WriteLine($"|\tWpisz \"Wróć\", się aby cofnąć się do Menu.                                                  |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
             Console.ResetColor();
 
-            bool hasAnimalIdChanged = false;
+            string userValueInput = ValidateUserInput();
 
-            while (!hasAnimalIdChanged)
+            ShowCurrentAnimalEditModeMenu(userValueInput);
+
+        }
+
+        //Sprawdź poprawnie wprowadzone ID
+        public static string ValidateUserInput()
+        {
+            bool hasEditModeMenuDisplayed = false;
+            string userValueInput = null;
+
+            while (!hasEditModeMenuDisplayed)
             {
-
                 Console.WriteLine("\nPodaj ID dla popozycji.\nID: ");
                 userValueInput = Console.ReadLine()?.Trim() ?? string.Empty;
 
-                if (!string.IsNullOrWhiteSpace(userValueInput))
+                if (int.TryParse(userValueInput, out int currentAnimalIndex) && currentAnimalIndex >= 1 && currentAnimalIndex <= 6)
                 {
-                    if (int.TryParse(userValueInput, out int currentAnimalIndex) && currentAnimalIndex >= 1 && currentAnimalIndex <= 4)
+                    currentAnimalIndex--;
+                    if (!string.IsNullOrWhiteSpace(userValueInput))
                     {
-                        currentAnimalIndex--;
                         string newAnimalId;
-
-                        Console.Clear();
-                        ChangeTextColor("Blue");
-                        Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-                        Console.WriteLine($"|     Tryb edycji   -->  Pozycja ID {userValueInput}  <{animalsDatabase[currentAnimalIndex, 1].Replace("Species: ", "")}>                                     |");
-                        Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-                        Console.WriteLine($"|     Wpisz \"Wróć\", aby się cofnąć się do wyboru ID.                                             |");
-                        Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-
-
-                        newAnimalId = GetIdValue();
-                        Console.WriteLine($"Wstawiono: {newAnimalId} jako nowe ID");
-                        hasAnimalIdChanged = true;
+                        newAnimalId = ValidateID();
+                        hasEditModeMenuDisplayed = true;
                     }
                     else if (userValueInput == "Wróć")
                     {
@@ -216,6 +188,7 @@ namespace msLearn
                         Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
                         Console.ResetColor();
                         Console.ReadKey();
+                        Main([]);
                         break;
                     }
                     else
@@ -226,10 +199,89 @@ namespace msLearn
                     }
                 }
             }
-
-            return hasAnimalIdChanged ? "Zmieniono ID zwierzęcia" : "Nie zmieniono ID zwierzęcia";
+            return userValueInput;
         }
-        public static string GetIdValue()
+
+
+        public static string ShowCurrentAnimalEditModeMenu(string CurrentUserValueInput)
+        {
+            int currentAnimalIndex = 0;
+
+            Console.Clear();
+            //Wyświetl Wybraną pozycję
+            ChangeTextColor("Blue");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.Write("|");
+            Console.ResetColor();
+            ChangeTextColor("DarkCyan");
+            Console.Write($" Tryb edycji   -->  Wartość użytkownika \"{CurrentUserValueInput}\"");
+            Console.ResetColor(); ChangeTextColor("Blue");
+            Console.WriteLine("\t\t\t\t\t\t\t   |");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+-------------------------------------------------------+");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
+            Console.Write($"|");
+            Console.ResetColor();
+            ChangeTextColor("Yellow");
+            Console.Write($"\t {ourAnimals[currentAnimalIndex, 0]}");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
+            Console.Write($"|"); 
+            Console.ResetColor(); 
+            ChangeTextColor("Yellow"); 
+            Console.Write($"\t{ourAnimals[currentAnimalIndex, 1]}"); 
+            Console.ResetColor(); ChangeTextColor("DarkBlue");
+             Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
+            Console.Write($"|"); Console.ResetColor(); ChangeTextColor("Yellow"); Console.Write($"\t{ourAnimals[currentAnimalIndex, 2]}"); Console.ResetColor(); ChangeTextColor("DarkBlue"); Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
+            Console.Write($"|"); Console.ResetColor(); ChangeTextColor("Yellow"); Console.Write($"\t{ourAnimals[currentAnimalIndex, 3]}");
+            Console.ResetColor(); ChangeTextColor("DarkBlue");
+            Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
+            Console.Write($"|"); Console.ResetColor();
+            ChangeTextColor("Yellow");
+            Console.Write($"\t{ourAnimals[currentAnimalIndex, 4]}");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue"); Console.WriteLine("\t\t\t|");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
+            Console.Write($"|"); Console.ResetColor(); ChangeTextColor("Yellow");
+            Console.Write($"\t{ourAnimals[currentAnimalIndex, 5]}");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("\t|");
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
+            Console.ResetColor();
+            ChangeTextColor("Blue");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+-------------------------------------------------------+");
+            Console.WriteLine($"|Wpisz \"Wróć\", aby się cofnąć się do wyboru ID.                                                    |");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.ResetColor();
+
+            return CurrentUserValueInput;
+        }
+        public static void ShowEditModeMenuSeletion()
+        { 
+
+        }
+
+        //Edycja pola AnimalID
+        public static string ValidateID()
         {
             
             bool isAnimalIdValid = false;
@@ -245,7 +297,7 @@ namespace msLearn
                     Console.WriteLine($"Wprowadzono {userValue}");
                     isAnimalIdValid = true;
                 }
-                else if (userValue == "Wróć")
+                else if (userValue == "Wróć") // Zrobić powrót do wyboru opcji edycji
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -268,82 +320,6 @@ namespace msLearn
             }
             return userValue;
         }
-        //TODO: Usunąc po zakończeniu poprawek
-        public static string[,] InsertSampleData(string[,] ourAnimals)
-        {
-
-            string animalSpecies;
-            string animalID;
-            string animalAge;
-            string animalPhysicalDescription;
-            string animalPersonalityDescription;
-            string animalNickname;
-
-            for (int i = 0; i < ourAnimals.GetLength(0); i++)
-            {
-                if (i == 0)
-                {
-                    animalSpecies = "Pies";
-                    animalID = "d1";
-                    animalAge = "2";
-                    animalPhysicalDescription = "Średniej wielkości, kremowa, samica golden retriever ważąca około 65 funtów. Nauczona czystości w domu.";
-                    animalPersonalityDescription = "Uwielbia, gdy drapie się ją po brzuchu i lubi gonić swój ogon. Daje mnóstwo buziaków.";
-                    animalNickname = "lola";
-                }
-                else if (i == 1)
-                {
-                    animalSpecies = "Pies";
-                    animalID = "d2";
-                    animalAge = "9";
-                    animalPhysicalDescription = "Duży, czerwonobrązowy samiec golden retriever ważący około 85 funtów. Nauczony czystości w domu.";
-                    animalPersonalityDescription = "Uwielbia, gdy pociera się mu uszy, gdy wita cię przy drzwiach – albo w każdej chwili! Lubi się przytulać i dawać psie uściski.";
-                    animalNickname = "loki";
-                }
-                else if (i == 2)
-                {
-                    animalSpecies = "Kot";
-                    animalID = "c3";
-                    animalAge = "1";
-                    animalPhysicalDescription = "Mała, biała samica ważąca około 8 funtów. Nauczona korzystania z kuwety.";
-                    animalPersonalityDescription = "Przyjazna.";
-                    animalNickname = "Puss";
-                }
-                else if (i == 3)
-                {
-                    animalSpecies = "Kot";
-                    animalID = "c4";
-                    animalAge = "?";
-                    animalPhysicalDescription = "Mały, zwinny kot o miękkim futrze, który uwielbia drzemki na słońcu i zabawy z piórkami. Ciekawski, towarzyski i zawsze gotowy na przytulanie.";
-                    animalPersonalityDescription = "Ma miękkie, puszyste futro, jest zwinny i szybki, ciekawski i towarzyski, uwielbia drzemki na słońcu, lubi zabawy z piórkami, jest przyjazny i skory do przytulania.";
-                    animalNickname = "";
-                }
-                else if (i == 4)
-                {
-                    animalSpecies = "Papuga";
-                    animalID = "p5";
-                    animalAge = "?";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
-                    animalNickname = "";
-                }
-                else
-                {
-                    animalSpecies = "";
-                    animalID = "";
-                    animalAge = "";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
-                    animalNickname = "";
-                }
-
-                ourAnimals[i, 0] = "ID #: " + animalID;
-                ourAnimals[i, 1] = "Species: " + animalSpecies;
-                ourAnimals[i, 2] = "Age: " + animalAge;
-                ourAnimals[i, 3] = "Nickname: " + animalNickname;
-                ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-                ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
-            }
-            return ourAnimals;
-        }
+     
     }
 }
