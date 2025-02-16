@@ -9,40 +9,34 @@ namespace msLearn
 {
     internal class Program
     {
-        private static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
+        public static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
 
-        public static string ChangeTextColor(string color)
-        {
-            string errorMessage = "Zła wartość koloru wysłana do Metody ConsoleColorChange()";
-            if (Enum.TryParse(color, true, out ConsoleColor consoleColor)) { Console.ForegroundColor = consoleColor; return color; }
-            return errorMessage;
-        }
         static void Main(string[] args)
         {
             // TUTAJ RESTART
             ShowMenuProgram();
 
-            string menuSelection = GetMenuOption();
+            int menuSelection = ConsoleHelper.GetNumberByReadLine();
 
             Console.Write("Wybrano pozycję:");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($" {menuSelection}.");
             Console.ResetColor();
-            Console.WriteLine("Wciśnij \"Enter\", aby rozpocząć");
+            Console.WriteLine("Wciśnij \"E  nter\", aby rozpocząć");
             Console.ReadKey();
 
             switch (menuSelection)
             {
-                case "1":
-                    ShowAllItemsInArray();
+                case 1 :
+                    MenuAnimalsList.ManageAction();
                     break;
-                case "2":
+                case 2 :
                     ShowEditModeMenu();
                     break;
-                case "3":
+                case 3 :
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
                     break;
-                case "4":
+                case 4 :
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
                     break;
 
@@ -123,203 +117,5 @@ namespace msLearn
             Console.ResetColor();
         }
 
-
-
-        //Wejście W tryb Edycji
-        public static void ShowEditModeMenu()
-        {
-            Console.Clear();
-            Console.ResetColor();
-            ChangeTextColor("Blue");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.Write("|"); Console.ResetColor(); ChangeTextColor("DarkCyan"); Console.Write($"\tTryb edycji"); Console.ResetColor(); ChangeTextColor("Blue"); Console.WriteLine("                                                                                |");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|\tDo edycji możliwe jest MAX: {ourAnimals.GetLength(0)} pozycji.                                                     |");
-            Console.WriteLine($"|\tAby edytować wpisy należy podać numer pozycji ID w bazie.                                  |");
-            Console.WriteLine($"|\tDostępne pozycję ID to: 1, 2, 3, 4, 5, 6.                                                  |");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.ResetColor();
-            ChangeTextColor("Blue");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|\tWpisz \"Wróć\", się aby cofnąć się do Menu.                                                  |");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.ResetColor();
-
-            string userValueInput = ValidateUserInput();
-
-            ShowCurrentAnimalEditModeMenu(userValueInput);
-
-        }
-
-        //Sprawdź poprawnie wprowadzone ID
-        public static string ValidateUserInput()
-        {
-            bool hasEditModeMenuDisplayed = false;
-            string userValueInput = null;
-
-            while (!hasEditModeMenuDisplayed)
-            {
-                Console.WriteLine("\nPodaj ID dla popozycji.\nID: ");
-                userValueInput = Console.ReadLine()?.Trim() ?? string.Empty;
-
-                if (int.TryParse(userValueInput, out int currentAnimalIndex) && currentAnimalIndex >= 1 && currentAnimalIndex <= 6)
-                {
-                    currentAnimalIndex--;
-                    if (!string.IsNullOrWhiteSpace(userValueInput))
-                    {
-                        string newAnimalId;
-                        newAnimalId = ValidateID();
-                        hasEditModeMenuDisplayed = true;
-                    }
-                    else if (userValueInput == "Wróć")
-                    {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("Wybrano pozycję:");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($" {userValueInput}");
-                        Console.Write("Program zamyka ");
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine("Tryb Edycji\n\n");
-                        Console.ResetColor();
-                        Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
-                        Console.ResetColor();
-                        Console.ReadKey();
-                        Main([]);
-                        break;
-                    }
-                    else
-                    {
-                        ChangeTextColor("Red");
-                        Console.WriteLine($"Podano wartości z poza zakresu lub wprowadzono niewłaściwą wartość.\nPodana wartość: {userValueInput}");
-                        Console.ResetColor();
-                    }
-                }
-            }
-            return userValueInput;
-        }
-
-
-        public static string ShowCurrentAnimalEditModeMenu(string CurrentUserValueInput)
-        {
-            int currentAnimalIndex = 0;
-
-            Console.Clear();
-            //Wyświetl Wybraną pozycję
-            ChangeTextColor("Blue");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.Write("|");
-            Console.ResetColor();
-            ChangeTextColor("DarkCyan");
-            Console.Write($" Tryb edycji   -->  Wartość użytkownika \"{CurrentUserValueInput}\"");
-            Console.ResetColor(); ChangeTextColor("Blue");
-            Console.WriteLine("\t\t\t\t\t\t\t   |");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+-------------------------------------------------------+");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|");
-            Console.ResetColor();
-            ChangeTextColor("Yellow");
-            Console.Write($"\t {ourAnimals[currentAnimalIndex, 0]}");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|"); 
-            Console.ResetColor(); 
-            ChangeTextColor("Yellow"); 
-            Console.Write($"\t{ourAnimals[currentAnimalIndex, 1]}"); 
-            Console.ResetColor(); ChangeTextColor("DarkBlue");
-             Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|"); Console.ResetColor(); ChangeTextColor("Yellow"); Console.Write($"\t{ourAnimals[currentAnimalIndex, 2]}"); Console.ResetColor(); ChangeTextColor("DarkBlue"); Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|"); Console.ResetColor(); ChangeTextColor("Yellow"); Console.Write($"\t{ourAnimals[currentAnimalIndex, 3]}");
-            Console.ResetColor(); ChangeTextColor("DarkBlue");
-            Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|"); Console.ResetColor();
-            ChangeTextColor("Yellow");
-            Console.Write($"\t{ourAnimals[currentAnimalIndex, 4]}");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue"); Console.WriteLine("\t\t\t|");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|"); Console.ResetColor(); ChangeTextColor("Yellow");
-            Console.Write($"\t{ourAnimals[currentAnimalIndex, 5]}");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("\t|");
-            Console.ResetColor();
-            ChangeTextColor("DarkBlue");
-            Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.ResetColor();
-            ChangeTextColor("Blue");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+-------------------------------------------------------+");
-            Console.WriteLine($"|Wpisz \"Wróć\", aby się cofnąć się do wyboru ID.                                                    |");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.ResetColor();
-
-            return CurrentUserValueInput;
-        }
-        public static void ShowEditModeMenuSeletion()
-        { 
-
-        }
-
-        //Edycja pola AnimalID
-        public static string ValidateID()
-        {
-            
-            bool isAnimalIdValid = false;
-            string userValue = string.Empty;
-            while (!isAnimalIdValid)
-            {
-                Console.WriteLine("\nID: ");
-                userValue = Console.ReadLine()?.Trim() ?? "";
-
-                if (!string.IsNullOrWhiteSpace(userValue))
-                {
-                    Console.ResetColor();
-                    Console.WriteLine($"Wprowadzono {userValue}");
-                    isAnimalIdValid = true;
-                }
-                else if (userValue == "Wróć") // Zrobić powrót do wyboru opcji edycji
-                {
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write("Wprowadzono:");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($" {userValue}");
-                    Console.Write("Powrót do wyboru pozycji z Bazy");
-                    Console.ResetColor();
-                    Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
-                    Console.ReadKey();
-                    Console.ResetColor();
-                    return "Wróć";
-                }
-                else
-                {
-                    ChangeTextColor("Red");
-                    Console.WriteLine($"Wprowadzono niewłaściwą wartość.\nPodana wartość: {userValue}");
-                    Console.ResetColor();
-                }
-            }
-            return userValue;
-        }
-     
     }
 }
