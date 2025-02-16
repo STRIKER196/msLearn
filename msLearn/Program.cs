@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 
 namespace msLearn
@@ -13,88 +14,20 @@ namespace msLearn
             if (Enum.TryParse(color, true, out ConsoleColor consoleColor)) { Console.ForegroundColor = consoleColor; return color; }
             return errorMessage;
         }
+
         static void Main(string[] args)
         {
-            //zmienne wspisywane do tablicy
-            string animalSpecies = "";
-            string animalID = "";
-            string animalAge = "";
-            string animalPhysicalDescription = "";
-            string animalPersonalityDescription = "";
-            string animalNickname = "";
-            int maxPets = 5;
 
+
+            int maxPets = 6;
             string[,] ourAnimals = new string[maxPets, 6];
+            string animalID ="";
 
-            //wartości zmiennych wpisane do tablicy
-            for (int i = 0; i < maxPets; i++)
-            {
-                if (i == 0)
-                {
-                    animalSpecies = "Pies";
-                    animalID = "d1";
-                    animalAge = "2";
-                    animalPhysicalDescription = "Średniej wielkości, kremowa, samica golden retriever ważąca około 65 funtów. Nauczona czystości w domu.";
-                    animalPersonalityDescription = "Uwielbia, gdy drapie się ją po brzuchu i lubi gonić swój ogon. Daje mnóstwo buziaków.";
-                    animalNickname = "lola";
-                }
-                else if (i == 1)
-                {
-                    animalSpecies = "Pies";
-                    animalID = "d2";
-                    animalAge = "9";
-                    animalPhysicalDescription = "Duży, czerwonobrązowy samiec golden retriever ważący około 85 funtów. Nauczony czystości w domu.";
-                    animalPersonalityDescription = "Uwielbia, gdy pociera się mu uszy, gdy wita cię przy drzwiach – albo w każdej chwili! Lubi się przytulać i dawać psie uściski.";
-                    animalNickname = "loki";
-                }
-                else if (i == 2)
-                {
-                    animalSpecies = "Kot";
-                    animalID = "c3";
-                    animalAge = "1";
-                    animalPhysicalDescription = "Mała, biała samica ważąca około 8 funtów. Nauczona korzystania z kuwety.";
-                    animalPersonalityDescription = "Przyjazna.";
-                    animalNickname = "Puss";
-                }
-                else if (i == 3)
-                {
-                    animalSpecies = "Kot";
-                    animalID = "c4";
-                    animalAge = "?";
-                    animalPhysicalDescription = "Mały, zwinny kot o miękkim futrze, który uwielbia drzemki na słońcu i zabawy z piórkami. Ciekawski, towarzyski i zawsze gotowy na przytulanie.";
-                    animalPersonalityDescription = "Ma miękkie, puszyste futro, jest zwinny i szybki, ciekawski i towarzyski, uwielbia drzemki na słońcu, lubi zabawy z piórkami, jest przyjazny i skory do przytulania.";
-                    animalNickname = "";
-                }
-                else if (i == 4)
-                {
-                    animalSpecies = "Papuga";
-                    animalID = "p5";
-                    animalAge = "?";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
-                    animalNickname = "";
-                }
-                else
-                {
-                    animalSpecies = "";
-                    animalID = "";
-                    animalAge = "";
-                    animalPhysicalDescription = "";
-                    animalPersonalityDescription = "";
-                    animalNickname = "";
-                }
-
-                ourAnimals[i, 0] = "ID #: " + animalID;
-                ourAnimals[i, 1] = "Species: " + animalSpecies;
-                ourAnimals[i, 2] = "Age: " + animalAge;
-                ourAnimals[i, 3] = "Nickname: " + animalNickname;
-                ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-                ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
-            }
+            InsertSampleData(ourAnimals);
 
             ShowMenuProgram();
-            string menuSelection = GetMenuOption();
 
+            string menuSelection = GetMenuOption();
 
             Console.Write("Wybrano pozycję:");
             Console.ForegroundColor = ConsoleColor.Green;
@@ -107,19 +40,21 @@ namespace msLearn
             {
                 case "1":
                     ShowAllItemsInArray(ourAnimals);
-                break;
+                    break;
                 case "2":
-                    GetNewAnimalRecord(maxPets, ourAnimals, animalID);
-                break;
+                    GetNewAnimalRecord(maxPets, ourAnimals);
+                    break;
                 case "3":
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
-                break;
+                    break;
                 case "4":
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
-                break;
-            
+                    break;
+
             }
         }
+
+
         public static string GetMenuOption()
         {
             string readResult = null;
@@ -146,7 +81,6 @@ namespace msLearn
                     }
                     else if
                     (
-                        // Przekazuje string w metodzie, ponieważ input moze być stringiem lub intem
                         readResult == "1" || readResult == "2" ||
                         readResult == "3" || readResult == "4" ||
                         readResult == "5" || readResult == "6" ||
@@ -222,7 +156,7 @@ namespace msLearn
                 Console.Clear();
             }
         }
-        public static string GetNewAnimalRecord(int maxPets, string[,] animalsDatabase, string animalID)
+        public static string GetNewAnimalRecord(int maxPets, string[,] animalsDatabase)
         {
             Console.ResetColor();
             string userValueInput = null;
@@ -249,13 +183,13 @@ namespace msLearn
             {
 
                 Console.WriteLine("\nPodaj ID dla popozycji.\nID: ");
-                userValueInput = Console.ReadLine()?.Trim() ?? "";
+                userValueInput = Console.ReadLine()?.Trim() ?? string.Empty;
 
                 if (!string.IsNullOrWhiteSpace(userValueInput))
                 {
                     if (int.TryParse(userValueInput, out int currentAnimalIndex) && currentAnimalIndex >= 1 && currentAnimalIndex <= 4)
                     {
-                        currentAnimalIndex = currentAnimalIndex - 1;
+                        currentAnimalIndex--;
                         string newAnimalId;
 
                         Console.Clear();
@@ -267,7 +201,7 @@ namespace msLearn
                         Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
 
 
-                        newAnimalId = GetIdValue(animalID);
+                        newAnimalId = GetIdValue();
                         Console.WriteLine($"Wstawiono: {newAnimalId} jako nowe ID");
                         hasAnimalIdChanged = true;
                     }
@@ -298,10 +232,11 @@ namespace msLearn
 
             return hasAnimalIdChanged ? "Zmieniono ID zwierzęcia" : "Nie zmieniono ID zwierzęcia";
         }
-        public static string GetIdValue(string userValue)
+        public static string GetIdValue()
         {
+            
             bool isAnimalIdValid = false;
-
+            string userValue = string.Empty;
             while (!isAnimalIdValid)
             {
                 Console.WriteLine("\nID: ");
@@ -337,5 +272,82 @@ namespace msLearn
             return userValue;
         }
         //TODO: Usunąc po zakończeniu poprawek
+        public static string[,] InsertSampleData(string[,] ourAnimals)
+        {
+
+            string animalSpecies;
+            string animalID;
+            string animalAge;
+            string animalPhysicalDescription;
+            string animalPersonalityDescription;
+            string animalNickname;
+            int maxPets = 6;
+
+            for (int i = 0; i < maxPets; i++)
+            {
+                if (i == 0)
+                {
+                    animalSpecies = "Pies";
+                    animalID = "d1";
+                    animalAge = "2";
+                    animalPhysicalDescription = "Średniej wielkości, kremowa, samica golden retriever ważąca około 65 funtów. Nauczona czystości w domu.";
+                    animalPersonalityDescription = "Uwielbia, gdy drapie się ją po brzuchu i lubi gonić swój ogon. Daje mnóstwo buziaków.";
+                    animalNickname = "lola";
+                }
+                else if (i == 1)
+                {
+                    animalSpecies = "Pies";
+                    animalID = "d2";
+                    animalAge = "9";
+                    animalPhysicalDescription = "Duży, czerwonobrązowy samiec golden retriever ważący około 85 funtów. Nauczony czystości w domu.";
+                    animalPersonalityDescription = "Uwielbia, gdy pociera się mu uszy, gdy wita cię przy drzwiach – albo w każdej chwili! Lubi się przytulać i dawać psie uściski.";
+                    animalNickname = "loki";
+                }
+                else if (i == 2)
+                {
+                    animalSpecies = "Kot";
+                    animalID = "c3";
+                    animalAge = "1";
+                    animalPhysicalDescription = "Mała, biała samica ważąca około 8 funtów. Nauczona korzystania z kuwety.";
+                    animalPersonalityDescription = "Przyjazna.";
+                    animalNickname = "Puss";
+                }
+                else if (i == 3)
+                {
+                    animalSpecies = "Kot";
+                    animalID = "c4";
+                    animalAge = "?";
+                    animalPhysicalDescription = "Mały, zwinny kot o miękkim futrze, który uwielbia drzemki na słońcu i zabawy z piórkami. Ciekawski, towarzyski i zawsze gotowy na przytulanie.";
+                    animalPersonalityDescription = "Ma miękkie, puszyste futro, jest zwinny i szybki, ciekawski i towarzyski, uwielbia drzemki na słońcu, lubi zabawy z piórkami, jest przyjazny i skory do przytulania.";
+                    animalNickname = "";
+                }
+                else if (i == 4)
+                {
+                    animalSpecies = "Papuga";
+                    animalID = "p5";
+                    animalAge = "?";
+                    animalPhysicalDescription = "";
+                    animalPersonalityDescription = "";
+                    animalNickname = "";
+                }
+                else
+                {
+                    animalSpecies = "";
+                    animalID = "";
+                    animalAge = "";
+                    animalPhysicalDescription = "";
+                    animalPersonalityDescription = "";
+                    animalNickname = "";
+                }
+
+                ourAnimals[i, 0] = "ID #: " + animalID;
+                ourAnimals[i, 1] = "Species: " + animalSpecies;
+                ourAnimals[i, 2] = "Age: " + animalAge;
+                ourAnimals[i, 3] = "Nickname: " + animalNickname;
+                ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+                ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
+            }
+            return ourAnimals;
+        }
     }
 }
