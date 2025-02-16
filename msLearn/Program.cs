@@ -18,10 +18,7 @@ namespace msLearn
         static void Main(string[] args)
         {
 
-
-            int maxPets = 6;
-            string[,] ourAnimals = new string[maxPets, 6];
-            string animalID ="";
+            string[,] ourAnimals = new string[6,6];
 
             InsertSampleData(ourAnimals);
 
@@ -42,7 +39,7 @@ namespace msLearn
                     ShowAllItemsInArray(ourAnimals);
                     break;
                 case "2":
-                    GetNewAnimalRecord(maxPets, ourAnimals);
+                    GetNewAnimalRecord(ourAnimals);
                     break;
                 case "3":
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
@@ -156,7 +153,7 @@ namespace msLearn
                 Console.Clear();
             }
         }
-        public static string GetNewAnimalRecord(int maxPets, string[,] animalsDatabase)
+        public static string GetNewAnimalRecord(string[,] animalsDatabase)
         {
             Console.ResetColor();
             string userValueInput = null;
@@ -167,7 +164,7 @@ namespace msLearn
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
             ChangeTextColor("DarkBlue");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|     Do edycji możliwe jest MAX: {maxPets} pozycji.                                                       |");
+            Console.WriteLine($"|     Do edycji możliwe jest MAX: {animalsDatabase.GetLength(0)} pozycji.                                                       |");
             Console.WriteLine($"|     Aby edytować wpisy należy podać numer pozycji ID wpisu.                                      |");
             Console.WriteLine($"|     Dostępne pozycję to: 1, 2, 3, 4, 5, 6.                                                       |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
@@ -281,9 +278,8 @@ namespace msLearn
             string animalPhysicalDescription;
             string animalPersonalityDescription;
             string animalNickname;
-            int maxPets = 6;
 
-            for (int i = 0; i < maxPets; i++)
+            for (int i = 0; i < ourAnimals.GetLength(0); i++)
             {
                 if (i == 0)
                 {
