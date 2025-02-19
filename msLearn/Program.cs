@@ -3,28 +3,29 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
-using msLearn2;
+using msLearnData;
 
 namespace msLearn
 {
     internal class Program
     {
-        //Inicjalizuje bazę danych i przypisuje jej wartość do zmiennej
+        //Inicjalizuje lokalną onStart() bazę danych i przypisuje jej wartość do zmiennej
         public static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
+        //Baza umiera po zamnięciu onDestroy()
 
         public static void Main(string[] args)
         {
-            // Start
+            //Start
             ShowMenuProgram();
-            // Obsługa automatycznego wpisu wartości przez użytkownika
+            //Obsługa automatycznego wpisu wartości przez użytkownika
             int userAction = ConsoleHelper.GetNumberByReadLine();
-            //Wyśweitl wybór użytkownika
+            //Wyświetl wybór użytkownika
             DisplayUserChoice(userAction);
             //Uruchom program
-            OpenPorgram(userAction);
+            OpenPorgramFromMenu(userAction);
         }
 
-        private static void OpenPorgram(int menuSelection)
+        private static void OpenPorgramFromMenu(int menuSelection)
         {
             switch (menuSelection)
             {
@@ -32,7 +33,7 @@ namespace msLearn
                     MenuAnimalsList.ManageAction();
                     break;
                 case 2:
-                    MenuEditMode.ShowEditModeMenu();
+                    MenuEditMode.EditModeMenu();
                     break;
                 case 3:
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
@@ -47,8 +48,6 @@ namespace msLearn
                     Console.ResetColor();
                     Console.ReadKey();
                     return;
-                 break;
-
             }
         }
 

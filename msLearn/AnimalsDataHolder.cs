@@ -1,9 +1,9 @@
-namespace msLearn2 {
+namespace msLearnData {
     public class AnimalsDataHolder {
 
         public static string[,] GetSampleData()
         {
-            string[,] ourAnimals = new string[6, 7];
+            string[,] ourAnimals = new string[6, 8];
             string animalSpecies;
             string animalID;
             string animalAge;

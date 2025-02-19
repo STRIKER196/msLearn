@@ -31,9 +31,29 @@ namespace msLearn
                 {
                     return key;
                 }
-
-                Console.WriteLine("Wpisz poprawna wartosc.");
+                ConsoleHelper.ChangeTextColor("Red");
+                Console.WriteLine("\nWpisz poprawna wartość.");
+                Console.ResetColor();
             } while (true);
+        }
+
+        public static void PrintLineInConsole()
+        {
+            //Wypełnienie tabeli
+            Console.ResetColor();
+            ChangeTextColor("DarkBlue");
+            Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
+            Console.ResetColor();
+        }
+
+        public static void PrintBackMessageInConsole()
+        {
+            Console.ResetColor();
+            ChangeTextColor("Blue");
+            Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
+            Console.WriteLine($"|0.   |    Wróć                                                                                      |");
+            Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
+            Console.ResetColor();
         }
     }
 }
