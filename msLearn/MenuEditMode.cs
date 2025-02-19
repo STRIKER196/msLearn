@@ -174,7 +174,7 @@ namespace msLearn
                     else if (userValue == 6)
                     {
                         newUserValue = "Nick: " + text;
-                    }
+                    } 
                    
                     correctValue = true;
                 }
