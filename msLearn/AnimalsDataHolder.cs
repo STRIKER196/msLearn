@@ -1,5 +1,6 @@
 namespace msLearn2 {
     public class AnimalsDataHolder {
+
         public static string[,] GetSampleData()
         {
             string[,] ourAnimals = new string[6, 7];

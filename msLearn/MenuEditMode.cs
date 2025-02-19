@@ -13,7 +13,7 @@ namespace msLearn
             ShowEditModeMenu();
         }
  
-        private static void ShowEditModeMenu()
+        public static void ShowEditModeMenu()
         {
             Console.Clear();
             Console.ResetColor();
@@ -79,7 +79,7 @@ namespace msLearn
                         Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
                         Console.ResetColor();
                         Console.ReadKey();
-                        Main([]);
+                        Program.Main([]);
                         break;
                     }
                     else
@@ -113,7 +113,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t {ourAnimals[currentAnimalIndex, 0]}");
+            Console.Write($"\t {Program.ourAnimals[currentAnimalIndex, 0]}");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
@@ -123,17 +123,23 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{ourAnimals[currentAnimalIndex, 1]}");
+            Console.Write($"\t{Program.ourAnimals[currentAnimalIndex, 1]}");
             Console.ResetColor(); ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  |");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|"); Console.ResetColor(); ConsoleHelper.ChangeTextColor("Yellow"); Console.Write($"\t{ourAnimals[currentAnimalIndex, 2]}"); Console.ResetColor(); ConsoleHelper.ChangeTextColor("DarkBlue"); Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
+            Console.Write($"|"); Console.ResetColor();
+            ConsoleHelper.ChangeTextColor("Yellow");
+            Console.Write($"\t{Program.ourAnimals[currentAnimalIndex, 2]}");
+            Console.ResetColor(); ConsoleHelper.ChangeTextColor("DarkBlue");
+            Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
-            Console.Write($"|"); Console.ResetColor(); ConsoleHelper.ChangeTextColor("Yellow"); Console.Write($"\t{ourAnimals[currentAnimalIndex, 3]}");
+            Console.Write($"|"); Console.ResetColor();
+            ConsoleHelper.ChangeTextColor("Yellow");
+            Console.Write($"\t{Program.ourAnimals[currentAnimalIndex, 3]}");
             Console.ResetColor(); ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t   |");
             Console.ResetColor();
@@ -141,14 +147,14 @@ namespace msLearn
             Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
             Console.Write($"|"); Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{ourAnimals[currentAnimalIndex, 4]}");
+            Console.Write($"\t{Program.ourAnimals[currentAnimalIndex, 4]}");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue"); Console.WriteLine("\t\t\t|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("+----------------------------------------------------------------------------------------------------------------------------------------------------------+");
             Console.Write($"|"); Console.ResetColor(); ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{ourAnimals[currentAnimalIndex, 5]}");
+            Console.Write($"\t{Program.ourAnimals[currentAnimalIndex, 5]}");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("\t|");
@@ -164,32 +170,7 @@ namespace msLearn
 
             return CurrentUserValueInput;
         }
-        private static void ShowAllItemsInArray()
-        {
-            for (int i = 0; i < Program.ourAnimals.GetLength(0); i++)
-            {
-                int pageCounter = i + 1;
-
-                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                Console.WriteLine($"|     Pozycja              | index iteratora: i ={i}                                                  |");
-                Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-
-                for (int j = 0; j < Program.ourAnimals.GetLength(1); j++)
-                {
-                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                    Console.WriteLine($"|{Program.ourAnimals[i, j]}");
-                    Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                }
-
-                Console.WriteLine("\n");
-                Console.WriteLine($"Strona: {pageCounter}");
-                Console.WriteLine($"[{pageCounter}] of [{Program.ourAnimals.GetLength(0)}]");
-                Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
-                Console.ReadLine();
-                Console.ResetColor();
-                Console.Clear();
-            }
-        }
+       
         //Edycja pola AnimalID
         public static string ValidateID()
         {
@@ -223,7 +204,7 @@ namespace msLearn
                 }
                 else
                 {
-                    ChangeTextColor("Red");
+                    ConsoleHelper.ChangeTextColor("Red");
                     Console.WriteLine($"Wprowadzono niewłaściwą wartość.\nPodana wartość: {userValue}");
                     Console.ResetColor();
                 }

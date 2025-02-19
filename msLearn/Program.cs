@@ -11,7 +11,7 @@ namespace msLearn
     {
         public static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // TUTAJ RESTART
             ShowMenuProgram();
@@ -31,7 +31,7 @@ namespace msLearn
                     MenuAnimalsList.ManageAction();
                     break;
                 case 2 :
-                    ShowEditModeMenu();
+                    MenuEditMode.ShowEditModeMenu();
                     break;
                 case 3 :
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
@@ -81,7 +81,7 @@ namespace msLearn
                     }
                     else
                     {
-                        ChangeTextColor("Magenta");
+                        ConsoleHelper.ChangeTextColor("Magenta");
                         Console.WriteLine("Program nie rozpoznał wartości.");
                         Console.ResetColor();
                     }
@@ -89,7 +89,7 @@ namespace msLearn
                 }
                 else
                 {
-                    ChangeTextColor("Red");
+                    ConsoleHelper.ChangeTextColor("Red");
                     Console.WriteLine("Program nie rozpoznał wartości lub wciśnieto Enter.");
                     Console.ResetColor();
                 }
