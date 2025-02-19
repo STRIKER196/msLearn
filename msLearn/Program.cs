@@ -18,11 +18,12 @@ namespace msLearn
 
             int menuSelection = ConsoleHelper.GetNumberByReadLine();
 
-            Console.Write("Wybrano pozycję:");
+            
+            Console.Write("\nWybrano pozycję:\t");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($" {menuSelection}.");
+            Console.WriteLine($"{menuSelection}");
             Console.ResetColor();
-            Console.WriteLine("Wciśnij \"E  nter\", aby rozpocząć");
+            Console.WriteLine("Wciśnij \"Enter\", aby rozpocząć");
             Console.ReadKey();
 
             switch (menuSelection)
@@ -62,7 +63,7 @@ namespace msLearn
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write("Wybrano pozycję:");
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($" {readResult}");
+                        Console.WriteLine($" {readResult}\n");
                         Console.WriteLine("Program się zamyka...\n\n");
                         Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
                         Console.ReadKey();
@@ -102,12 +103,12 @@ namespace msLearn
             Console.ResetColor();
             Console.Clear();
 
-            Console.WriteLine("Wiraj w aplikacji Contoso PetFriends. Dostepne opcje to:\n");
+            Console.WriteLine("Witaj w aplikacji Contoso PetFriends. Dostepne opcje to:\n");
 
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.WriteLine("| Pozycja  | Opis działania                                                    |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| 1.       | Wypisz wszystkie zarejestrowane zwięrzęta w bazie.                |");
+            Console.WriteLine("| 1.       | Wypisz wszystkie zarejestrowane zwierzęta w bazie.                |");
             Console.WriteLine("| 2.       | Tryb Edycji.                                                      |");
             Console.WriteLine("| 3.       | Wyświetl wybrane wszystkie zwierzęta o danym charakterze.         |");
             Console.WriteLine("| 4.       | Sprawdź nieuzupełnione pola w Archiwum.                           |");

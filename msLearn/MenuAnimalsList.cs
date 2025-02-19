@@ -14,7 +14,7 @@ namespace msLearn
             Console.ResetColor();
             Console.Clear();
 
-            PrintAllAnimalsInDataBase.PrintAllOneAnimalAtPage();
+            AnimalDatabasePrinter.PrintAllOneAnimalAtPage();
         }
 
 
