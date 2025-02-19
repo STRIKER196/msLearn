@@ -9,114 +9,75 @@ namespace msLearn
 {
     internal class Program
     {
+        //Inicjalizuje bazę danych i przypisuje jej wartość do zmiennej
         public static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
 
         public static void Main(string[] args)
         {
-            // TUTAJ RESTART
+            // Start
             ShowMenuProgram();
+            // Obsługa automatycznego wpisu wartości przez użytkownika
+            int userAction = ConsoleHelper.GetNumberByReadLine();
+            //Wyśweitl wybór użytkownika
+            DisplayUserChoice(userAction);
+            //Uruchom program
+            OpenPorgram(userAction);
+        }
 
-            int menuSelection = ConsoleHelper.GetNumberByReadLine();
+        private static void OpenPorgram(int menuSelection)
+        {
+            switch (menuSelection)
+            {
+                case 1:
+                    MenuAnimalsList.ManageAction();
+                    break;
+                case 2:
+                    MenuEditMode.ShowEditModeMenu();
+                    break;
+                case 3:
+                    Console.WriteLine("Oprogramowanie w trakcie pracy");
+                    break;
+                case 4:
+                    Console.WriteLine("Oprogramowanie w trakcie pracy");
+                    break;
+                case 0:
+                    Console.Clear();
+                    ConsoleHelper.ChangeTextColor("Green");
+                    Console.WriteLine("\n\nDo widzenia.");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    return;
+                 break;
 
-            
+            }
+        }
+
+        private static void DisplayUserChoice(int menuSelection)
+        {
             Console.Write("\nWybrano pozycję:\t");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{menuSelection}");
             Console.ResetColor();
             Console.WriteLine("Wciśnij \"Enter\", aby rozpocząć");
             Console.ReadKey();
-
-            switch (menuSelection)
-            {
-                case 1 :
-                    MenuAnimalsList.ManageAction();
-                    break;
-                case 2 :
-                    MenuEditMode.ShowEditModeMenu();
-                    break;
-                case 3 :
-                    Console.WriteLine("Oprogramowanie w trakcie pracy");
-                    break;
-                case 4 :
-                    Console.WriteLine("Oprogramowanie w trakcie pracy");
-                    break;
-
-            }
         }
 
-
-        public static string GetMenuOption()
-        {
-            
-            string readResult = null;
-            bool correctReadResultValue = false;
-            
-            while (!correctReadResultValue)
-            {
-                Console.WriteLine("\nWprowadz wartość pozycji, którą ma wykonać program");
-                readResult = (Console.ReadLine() ?? "").Trim().Replace(".","");
-                if (readResult != null && !string.IsNullOrWhiteSpace(readResult))
-                {
-                    if (readResult == "Exit")
-                    {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write("Wybrano pozycję:");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($" {readResult}\n");
-                        Console.WriteLine("Program się zamyka...\n\n");
-                        Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
-                        Console.ReadKey();
-                        Environment.Exit(0);
-
-                    }
-                    else if
-                    (
-                        readResult == "1" || readResult == "2" ||
-                        readResult == "3" || readResult == "4" ||
-                        readResult == "5" || readResult == "6" ||
-                        readResult == "7" || readResult == "8"
-                    ) 
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        ConsoleHelper.ChangeTextColor("Magenta");
-                        Console.WriteLine("Program nie rozpoznał wartości.");
-                        Console.ResetColor();
-                    }
-                    correctReadResultValue = true;
-                }
-                else
-                {
-                    ConsoleHelper.ChangeTextColor("Red");
-                    Console.WriteLine("Program nie rozpoznał wartości lub wciśnieto Enter.");
-                    Console.ResetColor();
-                }
-                correctReadResultValue = false;
-            }
-            return readResult;
-        }
         public static void ShowMenuProgram()
         {
             Console.ResetColor();
             Console.Clear();
-
             Console.WriteLine("Witaj w aplikacji Contoso PetFriends. Dostepne opcje to:\n");
-
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| Pozycja  | Opis działania                                                    |");
+            Console.WriteLine("| Pozycja  | Opis działania:                                                   |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.WriteLine("| 1.       | Wypisz wszystkie zarejestrowane zwierzęta w bazie.                |");
             Console.WriteLine("| 2.       | Tryb Edycji.                                                      |");
             Console.WriteLine("| 3.       | Wyświetl wybrane wszystkie zwierzęta o danym charakterze.         |");
             Console.WriteLine("| 4.       | Sprawdź nieuzupełnione pola w Archiwum.                           |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| Exit     | Wpisz słowo \"Exit\", wby wyjść z programu.                         |");
+            Console.WriteLine("| 0.       | Wybierz \" 0 \", aby zamknać program.                               |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.ResetColor();
         }
-
     }
 }
