@@ -1,4 +1,5 @@
-﻿using System;
+﻿using msLearnData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -11,13 +12,27 @@ namespace msLearn
     {
         public static void EditModeMenu()
         {
+            //Wyświetl informacje o wejsći do epcji z Trybem Edycji
             DisplayEditModeLabel();
 
+            //Pobierz informację o edcyji indexu w bazie
             int userValue = ConsoleHelper.GetNumberByReadLine();
 
+            //Wyświetl profil i możliwości akcji na bazie indexu w bazie
             DisplayAnimalBy(userValue);
 
+            //Wyświetl intrukcję Funkcja cofania
+            ConsoleHelper.PrintBackMessageInConsole();
+
+            //Wybór drugiego indexu do edycji 
+            int editedndex = CallForUserAction();
+
+            //Wejście w tryb edytowania (Tablica[,])
+            EditCurrentAnimal(userValue, editedndex);
+
         }
+
+
 
 
         private static void DisplayEditModeLabel()
@@ -47,15 +62,10 @@ namespace msLearn
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
             Console.ResetColor();
         }
-        private static int EdytujWybranąPozycję()
+
+        private static int DisplayAnimalBy(int userValue)
         {
-            int mleko = 0;
-            return mleko;
-        }
-        public static void DisplayAnimalBy(int userValue)
-        {
-            bool isAnimalInEdit = false;
-            userValue--;
+            userValue--; // dostosownaie indexu do wartości w pozycji 
             //Nagłowek tabeli wybranego zwierzecia
             DisplayAnimalLabel(userValue);
 
@@ -72,12 +82,14 @@ namespace msLearn
             //Komunikat o wyborze parametru do edycji
             DisplayActions();
 
-            //Wybór pola z menu
-            int editIndex = ConsoleHelper.GetNumberByReadLine();
-            ActionMenu(userValue, editIndex);
+            return userValue;
+        }
 
-            //Stopka tabeli
-            ConsoleHelper.PrintBackMessageInConsole();
+        private static int CallForUserAction()
+        { 
+            //Pobierz drugi index
+            int editIndex = ConsoleHelper.GetNumberByReadLine();
+            return editIndex;
         }
 
         private static void DisplayActions()
@@ -93,103 +105,168 @@ namespace msLearn
             Console.ResetColor();
         }
 
-        private static int ActionMenu(int userValue, int editIndex)
+        private static string EditCurrentAnimal(int userValue, int editIndex)
         {
-            Console.ResetColor();
-            Console.Clear();
-
-            ActiveEdit(userValue);
-
-            return editIndex;
-        }
-
-        private static string ActiveEdit(int userValue)
-        {
-            string newUserValue = string.Empty;
             bool correctValue = false;
-            userValue++;
+            string newUserValue = string.Empty;
+            //userValue++; // przywrócenie wartości indeksu
 
-            if (userValue >= 1 && userValue < 7)
-            { 
-                while (!correctValue)
+            while (true)
+            //Układ bazy ściąga:
+            //0 = animalSpecies 
+            //1 = animalID 
+            //2 = animalAge 
+            //3 = animalPhysicalDescription
+            //4 = animalPersonalityDescription 
+            //5 = animalNickname
+            {
+                if (userValue == 1) //Spiecies
                 {
-                    ConsoleHelper.PrintLineInConsole();
-                    ConsoleHelper.ChangeTextColor("Green");
-                    Console.WriteLine("|\tEdytujesz teraz:");
-                    ConsoleHelper.PrintLineInConsole();
 
-                    if (userValue == 1)
-                    {
-                        DisplayAnimalSpeciesBy(userValue);
-                    }
-                    else if (userValue == 2)
-                    {
-                        Console.WriteLine("Wartość Id jest generowan automatycznie na bazie 1 lotery gatunku i pozycji indeksu w bazie.");
-                    }
-                    else if (userValue == 3)
-                    {
-                        DisplayAnimalAgeBy(userValue);
-                    }
-                    else if (userValue == 4)
-                    {
-                        DisplayAnimalPhysicsDescriptionBy(userValue);
-                    }
-                    else if (userValue == 5)
-                    {
-                        DisplayAnimalCharacterBy(userValue);
-                    }
-                    else if (userValue == 6)
-                    {
-                        DisplayAnimalNickBy(userValue);
-                    }
-
-                    ConsoleHelper.PrintLineInConsole();
-                    ConsoleHelper.ChangeTextColor("Green");
-                    Console.WriteLine("|\tZatwierdź nową wartość wciskając \"Enter\".");
-                    ConsoleHelper.PrintLineInConsole();
-                    Console.WriteLine("\nNową wartość:");
-
+                    DisplayActiveEditLabel();
+                    Console.WriteLine(userValue);
+                    DisplayAnimalSpeciesBy(userValue);
+                    Console.WriteLine(userValue);
+                    DisplayActivEditHelp();
                     string text = Console.ReadLine() ?? string.Empty;
+                    newUserValue = "Gatunek: " + text;
+                    userValue++;
+                    OverwriteCurrentAnimalValue(userValue, editIndex, newUserValue);
+                    DisplayAnimalSpeciesBy(userValue);
+                    Console.ReadKey();
+                    return newUserValue;
+                }
+                else if (userValue == 2) //ID
+                {
+                    Console.ResetColor();
+                    ConsoleHelper.ChangeTextColor("Red");
+                    Console.WriteLine("\n\tWartość Id jest generowan automatycznie na bazie 1 lotery gatunku i pozycji indeksu w bazie.");
+                    Console.ResetColor();
+                    Console.ReadKey();
+                    return newUserValue;
+                }
+                else if (userValue == 3) // wiek
+                {
 
-                    if (userValue == 1)
-                    {
-                        newUserValue = "Gatunek: " + text;
-                    }
-                    else if (userValue == 2)
-                    {
-                        Console.WriteLine("Wartość Id jest generowan automatycznie na bazie 1 lotery gatunku i pozycji indeksu w bazie.");
-                    }
-                    else if (userValue == 3)
-                    {
-                        newUserValue = "Wiek: " + text;
-                    }
-                    else if (userValue == 4)
-                    {
-                        newUserValue = "Opis fizyczny zwierzęcia: " + text;
-                    }
-                    else if (userValue == 5)
-                    {
-                        newUserValue = "Charakter: " + text;
-                    }
-                    else if (userValue == 6)
-                    {
-                        newUserValue = "Nick: " + text;
-                    } 
-                   
-                    correctValue = true;
+                    DisplayActiveEditLabel();
+                    DisplayAnimalAgeBy(userValue);
+                    DisplayActivEditHelp();
+                    string text = Console.ReadLine() ?? string.Empty;
+                    newUserValue = "Wiek: " + text;
+                    OverwriteCurrentAnimalValue(userValue, editIndex, newUserValue);
+                    Console.ReadKey();
+                    return newUserValue;
+                }
+                else if (userValue == 4) //opis fizyczny
+                {
+
+                    DisplayActiveEditLabel();
+                    DisplayAnimalPhysicsDescriptionBy(userValue);
+                    DisplayActivEditHelp();
+                    string text = Console.ReadLine() ?? string.Empty;
+                    newUserValue = "Opis fizyczny zwierzęcia: " + text;
+                    OverwriteCurrentAnimalValue(userValue, editIndex, newUserValue);
+                    Console.ReadKey();
+                    return newUserValue;
+                }
+                else if (userValue == 5) // charakter
+                {
+
+                    DisplayActiveEditLabel();
+                    DisplayAnimalCharacterBy(userValue);
+                    DisplayActivEditHelp();
+                    string text = Console.ReadLine() ?? string.Empty;
+                    newUserValue = "Charakter: " + text;
+                    OverwriteCurrentAnimalValue(userValue, editIndex, newUserValue);
+                    Console.ReadKey();
+                    return newUserValue;
+                }
+                else if (userValue == 6) // nick
+                {
+
+                    DisplayActiveEditLabel();
+                    DisplayAnimalNickBy(userValue);
+                    DisplayActivEditHelp();
+                    string text = Console.ReadLine() ?? string.Empty;
+                    newUserValue = "Nick: " + text;
+                    OverwriteCurrentAnimalValue(userValue, editIndex, newUserValue);
+                    Console.ReadKey();
+                    return newUserValue;
+                }
+                else if (userValue == 0) // exit
+                {
+                    Console.WriteLine("WYBRANO WRÓĆ");
+                    Console.ReadKey();
+                    EditModeMenu();
+                    //MECHANIZAM WRÓĆ
+                }
+                else
+                {
+                    Console.WriteLine("coś się zjebało");
+                    return newUserValue;
                 }
             }
-            else if (userValue == 0)
+
+        }
+
+        private static void OverwriteCurrentAnimalValue(int firstIndex, int secondIndex, string newStringValue)
+        {
+            Console.Clear();
+            Console.Write("Zapisywanie nowej wartości:");
+            ConsoleHelper.ChangeTextColor("DarkBlue");
+            Console.WriteLine($"\n{newStringValue}");
+
+            Program.ourAnimals[firstIndex, secondIndex] = newStringValue;
+
+            int resoultCode = NewValueCheck(firstIndex, secondIndex, newStringValue);
+
+            if (resoultCode == 0)
             {
-                Console.WriteLine("WYBRANO WRÓĆ");
-                Console.ReadKey();
-                //MECHANIZAM WRÓĆ
+                Console.ResetColor();
+                ConsoleHelper.ChangeTextColor("Green");
+                Console.WriteLine("\n\nDane zostały zapisane poprawnie");
+                Console.ResetColor();
             }
             else
-            { 
-                Console.WriteLine("coś się zjebało");
+            {
+                Console.ResetColor();
+                ConsoleHelper.ChangeTextColor("Red");
+                Console.WriteLine("\nW trakcie zapisu doszło do nieoczekiwanego błędu");
+                Console.ResetColor();
             }
-            return newUserValue;
+            return;
+        }
+
+        private static int NewValueCheck(int firstIndex, int secondIndex, string newStringValue)
+        { 
+            string dataString = Program.ourAnimals[firstIndex,secondIndex];
+
+            if (dataString == newStringValue)
+            { 
+                return 0; 
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        private static void DisplayActivEditHelp()
+        {
+            ConsoleHelper.PrintLineInConsole();
+            ConsoleHelper.ChangeTextColor("Green");
+            Console.WriteLine("|\tZatwierdź nową wartość wciskając \"Enter\".");
+            ConsoleHelper.PrintLineInConsole();
+            Console.WriteLine("\nNową wartość:");
+        }
+
+        private static void DisplayActiveEditLabel()
+        {
+            //Console.Clear();
+            ConsoleHelper.PrintLineInConsole();
+            ConsoleHelper.ChangeTextColor("Green");
+            Console.WriteLine("\n|\tEdytujesz teraz:");
+            ConsoleHelper.PrintLineInConsole();
         }
 
         //private static string ValidateStringUserInput()
@@ -265,7 +342,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{Program.ourAnimals[userValue, 0]} \n");
+            Console.Write($"\t{Program.ourAnimals[userValue, 1]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");
@@ -280,7 +357,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{Program.ourAnimals[userValue, 1]} \n");
+            Console.Write($"\t{Program.ourAnimals[userValue, 2]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");
@@ -295,7 +372,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{Program.ourAnimals[userValue, 2]} \n");
+            Console.Write($"\t{Program.ourAnimals[userValue, 0]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");
@@ -309,7 +386,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{Program.ourAnimals[userValue, 3]} \n");
+            Console.Write($"\t{Program.ourAnimals[userValue, 5]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");
@@ -323,7 +400,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{Program.ourAnimals[userValue, 4]} \n");
+            Console.Write($"\t{Program.ourAnimals[userValue, 3]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");
@@ -337,7 +414,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{Program.ourAnimals[userValue, 5]} \n");
+            Console.Write($"\t{Program.ourAnimals[userValue, 4]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");
