@@ -37,7 +37,7 @@ namespace msLearn
             } while (true);
         }
 
-        public static void PrintLineInConsole()
+        public static void PrintLine()
         {
             //Wypełnienie tabeli
             Console.ResetColor();
@@ -46,12 +46,12 @@ namespace msLearn
             Console.ResetColor();
         }
 
-        public static void PrintBackMessageInConsole()
+        public static void PrintBackMessage()
         {
             Console.ResetColor();
             ChangeTextColor("Blue");
             Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|0.   |    Wróć                                                                                      |");
+            Console.WriteLine($"|0.   |    Wróć                                                                                       |");
             Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
             Console.ResetColor();
         }

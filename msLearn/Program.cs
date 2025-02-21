@@ -22,10 +22,10 @@ namespace msLearn
             //Wyświetl wybór użytkownika
             DisplayUserChoice(userAction);
             //Uruchom program
-            OpenPorgramFromMenu(userAction);
+            OpenProgramFromMenu(userAction);
         }
 
-        private static void OpenPorgramFromMenu(int menuSelection)
+        private static void OpenProgramFromMenu(int menuSelection)
         {
             switch (menuSelection)
             {
@@ -47,15 +47,15 @@ namespace msLearn
                     Console.WriteLine("\n\nDo widzenia.");
                     Console.ResetColor();
                     Console.ReadKey();
-                    return;
+                    break;
             }
         }
 
         private static void DisplayUserChoice(int menuSelection)
         {
-            Console.Write("\nWybrano pozycję:\t");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{menuSelection}");
+            Console.Write($"\nWybrano pozycję:\t");
+            ConsoleHelper.ChangeTextColor("Green");
+            Console.WriteLine(menuSelection);
             Console.ResetColor();
             Console.WriteLine("Wciśnij \"Enter\", aby rozpocząć");
             Console.ReadKey();
@@ -74,7 +74,7 @@ namespace msLearn
             Console.WriteLine("| 3.       | Wyświetl wybrane wszystkie zwierzęta o danym charakterze.         |");
             Console.WriteLine("| 4.       | Sprawdź nieuzupełnione pola w Archiwum.                           |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
-            Console.WriteLine("| 0.       | Wybierz \" 0 \", aby zamknać program.                               |");
+            Console.WriteLine("| 0.       | Wybierz \" 0 \", aby zamknąć program.                               |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.ResetColor();
         }
