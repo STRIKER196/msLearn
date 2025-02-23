@@ -1,3 +1,5 @@
+using msLearn.Constants;
+
 namespace msLearnData {
     public class AnimalsDataHolder {
 
@@ -68,13 +70,12 @@ namespace msLearnData {
                     animalNickname = "";
                 }
 
-                ourAnimals[i, 0] = "ID #: " + animalID;
-                ourAnimals[i, 1] = "Gatunek: " + animalSpecies;
-                ourAnimals[i, 2] = "Wiek: " + animalAge;
-                ourAnimals[i, 3] = "Nick: " + animalNickname;
-                ourAnimals[i, 4] = "Opis fizyczny zwierzêcia: " + animalPhysicalDescription;
-                ourAnimals[i, 5] = "Charakter: " + animalPersonalityDescription;
-
+                ourAnimals[i, AnimalID.Id] = "ID #: " + animalID;
+                ourAnimals[i, AnimalID.Species] = "Gatunek: " + animalSpecies;
+                ourAnimals[i, AnimalID.Age] = "Wiek: " + animalAge;
+                ourAnimals[i, AnimalID.PhysicalDescription] = "Opis fizyczny zwierzêcia: " + animalPhysicalDescription;
+                ourAnimals[i, AnimalID.PersonalityDescription] = "Charakter: " + animalPersonalityDescription;
+                ourAnimals[i, AnimalID.NickName] = "Nick: " + animalNickname;
             }
             return ourAnimals;
         }

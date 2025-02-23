@@ -10,7 +10,7 @@ namespace msLearn
 {
     internal class AnimalDatabasePrinter
     {
-        private static readonly int totalAnimalsCount = Program.ourAnimals.GetLength(0);
+        private static int totalAnimalsCount => Program.ourAnimals.GetLength(0);
         public static void PrintAllOneAnimalAtPage()
         {
             bool isDisplayingRecord = true;
