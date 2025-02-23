@@ -55,6 +55,32 @@ namespace msLearn
             Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
             Console.ResetColor();
         }
+        public static void BackToMainMenu()
+        {
+            ConsoleHelper.ChangeTextColor("Red");
+            Console.WriteLine("\n\n\tPowrót do głównego menu.\n\tWciśnij dowolny przycisk.");
+            Console.ResetColor();
+            Console.ReadKey();
+            Console.Clear();
+            Program.Main([]);
+        }
+        public static void BackToEditModeMainScreen()
+        {
+            ConsoleHelper.ChangeTextColor("Red");
+            Console.WriteLine("\n\n\tPowrót do wyboru zwierzęcia.\n\tWciśnij dowolny przycisk.");
+            Console.ResetColor();
+            Console.ReadKey();
+            Console.Clear();
+            Program.Main([]);
+        }
+        public static void UserValueIsOverExpected()
+        {
+            ConsoleHelper.ChangeTextColor("Red");
+            Console.WriteLine("\n\n\tWprowadzona wartość przez użytkownika jest większa lub mniejsza niż wskazana dopuszczalna wartość.\n\tWciśnij dowolny przycisk.");
+            Console.ResetColor();
+            Console.ReadKey();
+            MenuEditMode.EditModeMenu();
+        }
     }
 }
  

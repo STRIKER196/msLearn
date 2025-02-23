@@ -70,12 +70,12 @@ namespace msLearnData {
                     animalNickname = "";
                 }
 
-                ourAnimals[i, AnimalID.Id] = "ID #: " + animalID;
-                ourAnimals[i, AnimalID.Species] = "Gatunek: " + animalSpecies;
-                ourAnimals[i, AnimalID.Age] = "Wiek: " + animalAge;
-                ourAnimals[i, AnimalID.PhysicalDescription] = "Opis fizyczny zwierzêcia: " + animalPhysicalDescription;
-                ourAnimals[i, AnimalID.PersonalityDescription] = "Charakter: " + animalPersonalityDescription;
-                ourAnimals[i, AnimalID.NickName] = "Nick: " + animalNickname;
+                ourAnimals[i, AnimalPropertyId.Id] = "ID #: " + animalID;
+                ourAnimals[i, AnimalPropertyId.Species] = "Gatunek: " + animalSpecies;
+                ourAnimals[i, AnimalPropertyId.Age] = "Wiek: " + animalAge;
+                ourAnimals[i, AnimalPropertyId.PhysicalDescription] = "Opis fizyczny zwierzêcia: " + animalPhysicalDescription;
+                ourAnimals[i, AnimalPropertyId.PersonalityDescription] = "Charakter: " + animalPersonalityDescription;
+                ourAnimals[i, AnimalPropertyId.NickName] = "Nick: " + animalNickname;
             }
             return ourAnimals;
         }

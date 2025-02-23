@@ -26,7 +26,7 @@ namespace msLearn
             ConsoleHelper.ChangeTextColor("Blue");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
             Console.WriteLine($"|\tWybierz 0, aby wrócoć do głownego menu.                                                    |");
-            Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
+            Console.WriteLine("+--------------------------------------------------------------------------------------------------+\n\n");
             Console.ResetColor();
         }
 
@@ -50,9 +50,9 @@ namespace msLearn
         {
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkCyan");
-            Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|\t{AnimalID.Species +1}.   |    Edytuj gatunek         |{AnimalID.Id + 1}.    |    Edytuj id            |{AnimalID.Age + 1}.   |    Edytuj wiek      |");
-            Console.WriteLine($"|\t{AnimalID.PhysicalDescription + 1}.   |    Edytuj opis fizyczny   |{AnimalID.PersonalityDescription + 1}.    |    Edytuj charaktert    |{AnimalID.NickName + 1}.   |    Edytuj imię      | ");
+            Console.WriteLine("\n\n+-----------------------------------------------------------------------------------------------------+");
+            Console.WriteLine($"|\t{AnimalPropertyId.Species +1}.   |    Edytuj gatunek         |{AnimalPropertyId.Id + 1}.    |    Edytuj id            |{AnimalPropertyId.Age + 1}.   |    Edytuj wiek      |");
+            Console.WriteLine($"|\t{AnimalPropertyId.PhysicalDescription + 1}.   |    Edytuj opis fizyczny   |{AnimalPropertyId.PersonalityDescription + 1}.    |    Edytuj charaktert    |{AnimalPropertyId.NickName + 1}.   |    Edytuj imię      | ");
             Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
             Console.WriteLine("|\tWciśnij cyfrę od 1 - 6, aby edytować wskazaną pozycję.                                        |");
             Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
@@ -75,28 +75,27 @@ namespace msLearn
         }
         public static void PrintAnimalId(int animalId)
         {
-            PrintAnimalProperty(animalId, AnimalID.Id);
+            PrintAnimalProperty(animalId, AnimalPropertyId.Id);
         }
         public static void PrintAnimalSpecies(int animalId)
         {
-            PrintAnimalProperty(animalId, AnimalID.Species);
+            PrintAnimalProperty(animalId, AnimalPropertyId.Species);
         }
         public static void PrintAnimalAge(int animalId)
         {
-            PrintAnimalProperty(animalId, AnimalID.Age);
-
+            PrintAnimalProperty(animalId, AnimalPropertyId.Age);
         }
         public static void PrintAnimalNick(int animalId)
         {
-            PrintAnimalProperty(animalId, AnimalID.NickName);
+            PrintAnimalProperty(animalId, AnimalPropertyId.NickName);
         }
         public static void PrintAnimalPhysicalDescription(int animalId)
         {
-            PrintAnimalProperty(animalId, AnimalID.PhysicalDescription);
+            PrintAnimalProperty(animalId, AnimalPropertyId.PhysicalDescription);
         }
         public static void PrintAnimalPersonalityDescription(int animalId)
         {
-            PrintAnimalProperty(animalId, AnimalID.PersonalityDescription);
+            PrintAnimalProperty(animalId, AnimalPropertyId.PersonalityDescription);
         }
         private static void PrintAnimalProperty(int animalId, int animalPropertyId)
         {

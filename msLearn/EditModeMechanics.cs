@@ -13,16 +13,18 @@ namespace msLearn
         {
             switch (animalPropertyId)
             {
-                case AnimalID.Species: EditAnimalSpeciec(animalId); break;
-                case AnimalID.Id: EditAnimalId(); break;
-                case AnimalID.Age: EditAnimalAge(animalId); break;
-                case AnimalID.PhysicalDescription: EditAnimalPhysicalDescription(animalId); break;
-                case AnimalID.PersonalityDescription: EditAnimalPersonalDescription(animalId); break;
-                case AnimalID.NickName: EditAnimalNick(animalId); break;
+                case AnimalPropertyId.Species: EditAnimalSpeciec(animalId); break;
+                case AnimalPropertyId.Id: EditAnimalId(); break;
+                case AnimalPropertyId.Age: EditAnimalAge(animalId); break;
+                case AnimalPropertyId.PhysicalDescription: EditAnimalPhysicalDescription(animalId); break;
+                case AnimalPropertyId.PersonalityDescription: EditAnimalPersonalDescription(animalId); break;
+                case AnimalPropertyId.NickName: EditAnimalNick(animalId); break;
                 
                 default:
-                    Console.WriteLine("\nWYBRANO WRÓĆ");
-                    Console.ReadKey();
+                    if (animalPropertyId > 6)
+                    {
+                        ConsoleHelper.UserValueIsOverExpected();
+                    }
                     MenuEditMode.EditModeMenu();
                     break;
             }
@@ -30,26 +32,33 @@ namespace msLearn
         public static void EditAnimalId()
         {
             PrintAnimalIdCannotBeModyfiet();
+            PrintBackMessage();
         }
         public static void EditAnimalSpeciec(int animalId)
         {
-            EditAnimalProperty(animalId, AnimalProperty.Species, AnimalID.Species, (i) => EditModeGui.PrintAnimalSpecies(i));
+            EditAnimalProperty(animalId, AnimalProperty.Species, AnimalPropertyId.Species, (i) => EditModeGui.PrintAnimalSpecies(i));
+            PrintBackMessage();
+            Console.ReadLine();
         }
         public static void EditAnimalAge(int animalId)
         {
-            EditAnimalProperty(animalId, AnimalProperty.Age, AnimalID.Age, (i) => EditModeGui.PrintAnimalAge(i));
+            EditAnimalProperty(animalId, AnimalProperty.Age, AnimalPropertyId.Age, (i) => EditModeGui.PrintAnimalAge(i));
+            PrintBackMessage();
         }
         public static void EditAnimalPhysicalDescription(int animalId)
         {
-            EditAnimalProperty(animalId, AnimalProperty.PhysicalDescription, AnimalID.PhysicalDescription, (i) => EditModeGui.PrintAnimalPhysicalDescription(i));
+            EditAnimalProperty(animalId, AnimalProperty.PhysicalDescription, AnimalPropertyId.PhysicalDescription, (i) => EditModeGui.PrintAnimalPhysicalDescription(i));
+            PrintBackMessage();
         }
         public static void EditAnimalPersonalDescription(int animalId)
         {
-            EditAnimalProperty(animalId, AnimalProperty.PersonalityDescription, AnimalID.PersonalityDescription, (i) => EditModeGui.PrintAnimalPersonalityDescription(i));
+            EditAnimalProperty(animalId, AnimalProperty.PersonalityDescription, AnimalPropertyId.PersonalityDescription, (i) => EditModeGui.PrintAnimalPersonalityDescription(i));
+            PrintBackMessage();
         }
         public static void EditAnimalNick(int animalId)
         {
-            EditAnimalProperty(animalId, AnimalProperty.NickName, AnimalID.NickName, (i) => EditModeGui.PrintAnimalNick(i));
+            EditAnimalProperty(animalId, AnimalProperty.NickName, AnimalPropertyId.NickName, (i) => EditModeGui.PrintAnimalNick(i));
+            PrintBackMessage();
         }
 
         public static void ShowEditErrorMessage()
@@ -76,11 +85,17 @@ namespace msLearn
         }
         public static void PrintActiveEditLabel()
         {
-            //Console.Clear();
+            Console.WriteLine("");
             ConsoleHelper.PrintLine();
             ConsoleHelper.ChangeTextColor("Green");
             Console.WriteLine("|\tEdytujesz teraz:");
             ConsoleHelper.PrintLine();
+        }
+
+        public static void PrintBackMessage()
+        {
+            ConsoleHelper.PrintLine();
+            Console.WriteLine("|\t Wcisnij \"Enter\", by przejść, aby kontynuować.");
         }
 
         private static void PrintAnimalIdCannotBeModyfiet() 
@@ -91,9 +106,17 @@ namespace msLearn
             Console.ResetColor();
             Console.ReadKey();
         }
+        /// <summary>
+        /// Nadpisywanie wartości w tablicy [<paramref name="animalId"/>,<paramref name="animalPropertyId"/>], stringiem (<paramref name="animalPropertyName"/>+ ": " +userText) użytkownika. Drukowanie zmodyfikowanej wartości printAction (<paramref name="animalId"/).>
+        /// </summary>
+        /// <param name="animalId">ID zwierzęcia.</param>
+        /// <param name="animalPropertyName">Stała wartość tekstowa.</param>
+        /// <param name="animalPropertyId">Stałe ID właściwości zwierzęcia.</param>
+        /// <param name="printAction">Przesyłanie wartości animalID do funkcji drukującej tekst.</param>
         private static void EditAnimalProperty(int animalId, string animalPropertyName, int animalPropertyId, Action<int> printAction)
         {
-            PrintActiveEditLabel();
+
+            Console.WriteLine("Nowa wartość:");
             printAction(animalId);
             Console.WriteLine(animalId);
             PrintActivEditHelp();
@@ -103,7 +126,6 @@ namespace msLearn
 
             EditCurrentAnimalValue(animalId, animalPropertyId, newUserValue);
             printAction(animalId);
-            Console.ReadKey();
         }
         private static void EditCurrentAnimalValue(int animalId, int animalPropertyId, string newValue)
         {
@@ -111,6 +133,7 @@ namespace msLearn
             ConsoleHelper.PrintLine();
             Console.WriteLine("|\t Zapisywanie nowej wartości:");
             ConsoleHelper.PrintLine();
+            Console.ResetColor();
             Console.WriteLine("Stara wartość:");
             ConsoleHelper.ChangeTextColor("DarkBlue");
             string currentValue = Program.ourAnimals[animalId, animalPropertyId];

@@ -15,21 +15,24 @@ namespace msLearn
         public static void EditModeMenu()
         {
             EditModeGui.ShowEditModeTitle();
-
             int animalId = ConsoleHelper.GetNumberByReadLine();
 
-            EditModeGui.ShowAnimalInfo(animalId);
+            if (animalId > 0 && animalId < 9)
+            {
+                EditModeGui.ShowAnimalInfo(animalId);
 
-            EditModeGui.DisplayActions();
+                EditModeGui.DisplayActions();
 
-            ConsoleHelper.PrintBackMessage();
+                ConsoleHelper.PrintBackMessage();
 
-            int animalPropertyId = ConsoleHelper.GetNumberByReadLine() - 1;
+                int animalPropertyId = ConsoleHelper.GetNumberByReadLine() - 1;
+                EditModeMechanics.EditAnimalProperty(animalId, animalPropertyId);
+            }
+            if (animalId == 0) { Program.Main([]); }
 
-            EditModeMechanics.EditAnimalProperty(animalId, animalPropertyId);
-
-            Console.Clear();
-            Program.Main([]);
+            ConsoleHelper.UserValueIsOverExpected();
+            EditModeMenu();
         }
+
     }
 }
