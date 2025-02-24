@@ -10,7 +10,7 @@ namespace msLearn
 {
     internal class AnimalDatabasePrinter
     {
-        private static int totalAnimalsCount => Program.ourAnimals.GetLength(0);
+        private static int TotalAnimalsCount => Program.ourAnimals.GetLength(0);
         public static void PrintAllOneAnimalAtPage()
         {
             bool isDisplayingRecord = true;
@@ -19,7 +19,7 @@ namespace msLearn
             {
                 try
                 {
-                    for (int i = 0; i <= totalAnimalsCount; i++)
+                    for (int i = 0; i <= TotalAnimalsCount; i++)
                     {
                         int pageNumber = i + 1;
 
@@ -46,7 +46,7 @@ namespace msLearn
         }
         private static int ShowPageInfo(int pageNumber)
         {
-            Console.WriteLine(totalAnimalsCount);
+            Console.WriteLine(TotalAnimalsCount);
             Console.WriteLine("\n");
             Console.WriteLine($"Strona: {pageNumber}");
             Console.WriteLine($"[{pageNumber}] of [{Program.ourAnimals.GetLength(0)}]");

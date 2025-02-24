@@ -116,11 +116,10 @@ namespace msLearn
         private static void EditAnimalProperty(int animalId, string animalPropertyName, int animalPropertyId, Action<int> printAction)
         {
 
-            Console.WriteLine("Nowa wartość:");
+            Console.WriteLine("\nNowa wartość:");
             printAction(animalId);
-            Console.WriteLine(animalId);
             PrintActivEditHelp();
-
+                
             string userText = Console.ReadLine() ?? string.Empty;
             string newUserValue = animalPropertyName + ": " + userText;
 
@@ -149,7 +148,7 @@ namespace msLearn
 
             ShowEditSuccessMessage();
         }
+
+
     }
 }
-
-// EditModeGui.PrintAnimalSpecies(animalId);

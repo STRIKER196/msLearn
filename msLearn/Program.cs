@@ -1,28 +1,28 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
+using msLearn.Constants;
 using msLearnData;
 
 namespace msLearn
 {
     internal class Program
     {
-        //Inicjalizuje lokalną onStart() bazę danych i przypisuje jej wartość do zmiennej
         public static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
-        //Baza umiera po zamnięciu onDestroy()
 
         public static void Main(string[] args)
         {
-            //Start
-            ShowMenuProgram();
-            //Obsługa automatycznego wpisu wartości przez użytkownika
-            int userAction = ConsoleHelper.GetNumberByReadLine();
-            //Wyświetl wybór użytkownika
-            DisplayUserChoice(userAction);
-            //Uruchom program
-            OpenProgramFromMenu(userAction);
+            CountTargetSpecies();
+
+            //ShowMenuProgram();
+
+            //int userAction = ConsoleHelper.GetNumberByReadLine();
+
+            //PrintUserChoice(userAction);
+            //OpenProgramFromMenu(userAction);
         }
 
         private static void OpenProgramFromMenu(int menuSelection)
@@ -51,7 +51,7 @@ namespace msLearn
             }
         }
 
-        private static void DisplayUserChoice(int menuSelection)
+        private static void PrintUserChoice(int menuSelection)
         {
             Console.Write($"\nWybrano pozycję:\t");
             ConsoleHelper.ChangeTextColor("Green");
@@ -77,6 +77,32 @@ namespace msLearn
             Console.WriteLine("| 0.       | Wybierz \" 0 \", aby zamknąć program.                               |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.ResetColor();
+        }
+        private static void CountTargetSpecies()
+        {
+            string[,] ourAnimls = Program.ourAnimals;
+            int ourAnimalsArrayLenght = ourAnimals.GetLength(0);
+            Dictionary <string,int> dict = new Dictionary<string,int>();
+
+            for (int i = 0; i < ourAnimls.GetLength(0); i++)
+            {
+                string currentSpeciesInIteration = ourAnimls[i, AnimalPropertyId.Species].ToLower().Substring(8);
+
+                if (dict.ContainsKey(currentSpeciesInIteration))
+                {
+                    dict[currentSpeciesInIteration] += 1;
+                }
+                else 
+                { 
+                    dict[currentSpeciesInIteration] = 1;
+                }
+            }
+            foreach (KeyValuePair<string, int> item in dict)
+            {
+                Console.Write(item.Key + " : " + item.Value);
+            }
+            Console.ReadLine();
+
         }
     }
 }

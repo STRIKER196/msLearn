@@ -20,10 +20,10 @@ namespace msLearn
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
             Console.WriteLine($"|\tDo edycji możliwe jest MAX: {Program.ourAnimals.GetLength(0)} pozycji.                                                     |");
             Console.WriteLine($"|\tAby edytować wpisy należy podać numer pozycji ID w bazie.                                  |");
-            Console.WriteLine($"|\tDostępne pozycję ID to: 1, 2, 3, 4, 5, 6, 7, 8.                                            |");
+            Console.WriteLine($"|\tDostępne pozycję ID to: 1, 2, 3, 4, 5.                                                     |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
             Console.ResetColor();
-            ConsoleHelper.ChangeTextColor("Blue");
+            ConsoleHelper.ChangeTextColor("DarkCyan");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
             Console.WriteLine($"|\tWybierz 0, aby wrócoć do głownego menu.                                                    |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+\n\n");
@@ -36,7 +36,7 @@ namespace msLearn
         /// <param name="animalId">Id wskazaujący na pierwszą pozycję w tabeli ourAnimals[AnimalID,const].</param>
         public static void ShowAnimalInfo(int animalId)
         {
-            DisplayAnimalHeader(animalId);
+            PrintAnimalHeader(animalId);
             PrintAnimalSpecies(animalId);
             PrintAnimalId(animalId);
             PrintAnimalAge(animalId);
@@ -59,7 +59,7 @@ namespace msLearn
             Console.ResetColor();
         }
 
-        private static void DisplayAnimalHeader(int animalId)
+        private static void PrintAnimalHeader(int animalId)
         {
             Console.Clear();
             ConsoleHelper.ChangeTextColor("Blue");
@@ -103,7 +103,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"\t{Program.ourAnimals[animalId, animalPropertyId]} \n");
+            Console.Write($"|\t{Program.ourAnimals[animalId, animalPropertyId]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");

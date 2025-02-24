@@ -31,7 +31,7 @@ namespace msLearn
                 {
                     return key;
                 }
-                ConsoleHelper.ChangeTextColor("Red");
+                ChangeTextColor("Red");
                 Console.WriteLine("\nWpisz poprawna wartość.");
                 Console.ResetColor();
             } while (true);
@@ -79,6 +79,22 @@ namespace msLearn
             Console.WriteLine("\n\n\tWprowadzona wartość przez użytkownika jest większa lub mniejsza niż wskazana dopuszczalna wartość.\n\tWciśnij dowolny przycisk.");
             Console.ResetColor();
             Console.ReadKey();
+            MenuEditMode.EditModeMenu();
+        }
+        public static void UnexpectedError()
+        {
+            ConsoleHelper.ChangeTextColor("Red");
+            Console.WriteLine("\n\n\tWystąpił nieoczekiwany błąd.\n\tWciśnij dowolny przycisk.\n\tProgram uruchomi się ponownie");
+            Console.ReadLine();
+            Console.Clear();
+            Program.Main([]);
+        }
+        public static void EditSuccessful()
+        {
+            ConsoleHelper.ChangeTextColor("Green");
+            Console.WriteLine("\n\n\tOperacja zakończona.\n\tWciśnij dowolny przycisk.\n\tPowrót do menu edycji");
+            Console.ReadLine();
+            Console.Clear();
             MenuEditMode.EditModeMenu();
         }
     }
