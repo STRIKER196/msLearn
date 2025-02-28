@@ -97,6 +97,21 @@ namespace msLearn
             Console.Clear();
             MenuEditMode.EditModeMenu();
         }
+        public static void FindWordSuccessful()
+        {
+            ConsoleHelper.ChangeTextColor("Green");
+            Console.WriteLine("\n\n\tOperacja zakończona.\n\tWciśnij dowolny przycisk.\n\tPowrót do menu edycji");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+        public static void FindWordUserValueIsOverExpected()
+        {
+            ConsoleHelper.ChangeTextColor("Red");
+            Console.WriteLine("\n\n\tWprowadzona wartość przez użytkownika jest większa lub mniejsza niż wskazana dopuszczalna wartość.\n\tWciśnij dowolny przycisk.");
+            Console.ResetColor();
+            Console.ReadKey();
+        }
     }
 }
  

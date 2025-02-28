@@ -14,7 +14,7 @@ namespace msLearn
             switch (animalPropertyId)
             {
                 case AnimalPropertyId.Species: EditAnimalSpeciec(animalId); break;
-                case AnimalPropertyId.Id: EditAnimalId(); break;
+                case AnimalPropertyId.Id: EditAnimalId(animalId); break;
                 case AnimalPropertyId.Age: EditAnimalAge(animalId); break;
                 case AnimalPropertyId.PhysicalDescription: EditAnimalPhysicalDescription(animalId); break;
                 case AnimalPropertyId.PersonalityDescription: EditAnimalPersonalDescription(animalId); break;
@@ -29,16 +29,15 @@ namespace msLearn
                     break;
             }
         }
-        public static void EditAnimalId()
+        public static void EditAnimalId(int animalId)
         {
-            PrintAnimalIdCannotBeModyfiet();
+            EditAnimalProperty(animalId, AnimalProperty.Id, AnimalPropertyId.Id, (i) => EditModeGui.PrintAnimalId(i));
             PrintBackMessage();
         }
         public static void EditAnimalSpeciec(int animalId)
         {
             EditAnimalProperty(animalId, AnimalProperty.Species, AnimalPropertyId.Species, (i) => EditModeGui.PrintAnimalSpecies(i));
             PrintBackMessage();
-            Console.ReadLine();
         }
         public static void EditAnimalAge(int animalId)
         {

@@ -15,14 +15,13 @@ namespace msLearn
 
         public static void Main(string[] args)
         {
-            CountTargetSpecies();
 
-            //ShowMenuProgram();
+            ShowMenuProgram();
 
-            //int userAction = ConsoleHelper.GetNumberByReadLine();
+            int userAction = ConsoleHelper.GetNumberByReadLine();
 
-            //PrintUserChoice(userAction);
-            //OpenProgramFromMenu(userAction);
+            PrintUserChoice(userAction);
+            OpenProgramFromMenu(userAction);
         }
 
         private static void OpenProgramFromMenu(int menuSelection)
@@ -36,7 +35,7 @@ namespace msLearn
                     MenuEditMode.EditModeMenu();
                     break;
                 case 3:
-                    Console.WriteLine("Oprogramowanie w trakcie pracy");
+                    LookForUserStringInAnimalCharacter.PrintWords();
                     break;
                 case 4:
                     Console.WriteLine("Oprogramowanie w trakcie pracy");
@@ -77,32 +76,6 @@ namespace msLearn
             Console.WriteLine("| 0.       | Wybierz \" 0 \", aby zamknąć program.                               |");
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.ResetColor();
-        }
-        private static void CountTargetSpecies()
-        {
-            string[,] ourAnimls = Program.ourAnimals;
-            int ourAnimalsArrayLenght = ourAnimals.GetLength(0);
-            Dictionary <string,int> dict = new Dictionary<string,int>();
-
-            for (int i = 0; i < ourAnimls.GetLength(0); i++)
-            {
-                string currentSpeciesInIteration = ourAnimls[i, AnimalPropertyId.Species].ToLower().Substring(8);
-
-                if (dict.ContainsKey(currentSpeciesInIteration))
-                {
-                    dict[currentSpeciesInIteration] += 1;
-                }
-                else 
-                { 
-                    dict[currentSpeciesInIteration] = 1;
-                }
-            }
-            foreach (KeyValuePair<string, int> item in dict)
-            {
-                Console.Write(item.Key + " : " + item.Value);
-            }
-            Console.ReadLine();
-
         }
     }
 }
