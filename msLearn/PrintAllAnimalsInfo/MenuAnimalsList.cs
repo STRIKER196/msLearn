@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace msLearn
+namespace msLearn.PrintAllAnimalsInfo
 {
     internal class MenuAnimalsList
     {
@@ -16,7 +16,5 @@ namespace msLearn
 
             AnimalDatabasePrinter.PrintAllOneAnimalAtPage();
         }
-
-
     }
 }

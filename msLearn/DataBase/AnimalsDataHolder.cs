@@ -1,7 +1,9 @@
 using msLearn.Constants;
 
-namespace msLearnData {
-    public class AnimalsDataHolder {
+namespace msLearn.DataBase
+{
+    public class AnimalsDataHolder
+    {
 
         public static string[,] GetSampleData()
         {

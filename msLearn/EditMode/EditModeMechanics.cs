@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace msLearn
+namespace msLearn.EditMode
 {
     internal class EditModeMechanics
     {
@@ -19,7 +19,7 @@ namespace msLearn
                 case AnimalPropertyId.PhysicalDescription: EditAnimalPhysicalDescription(animalId); break;
                 case AnimalPropertyId.PersonalityDescription: EditAnimalPersonalDescription(animalId); break;
                 case AnimalPropertyId.NickName: EditAnimalNick(animalId); break;
-                
+
                 default:
                     if (animalPropertyId > 6)
                     {
@@ -97,7 +97,7 @@ namespace msLearn
             Console.WriteLine("|\t Wcisnij \"Enter\", by przejść, aby kontynuować.");
         }
 
-        private static void PrintAnimalIdCannotBeModyfiet() 
+        private static void PrintAnimalIdCannotBeModyfiet()
         {
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Red");
@@ -118,7 +118,7 @@ namespace msLearn
             Console.WriteLine("\nNowa wartość:");
             printAction(animalId);
             PrintActivEditHelp();
-                
+
             string userText = Console.ReadLine() ?? string.Empty;
             string newUserValue = animalPropertyName + ": " + userText;
 
@@ -134,16 +134,16 @@ namespace msLearn
             Console.ResetColor();
             Console.WriteLine("Stara wartość:");
             ConsoleHelper.ChangeTextColor("DarkBlue");
-            string currentValue = Program.ourAnimals[animalId, animalPropertyId];
+            string currentValue = CopntosoPetFriends.ourAnimals[animalId, animalPropertyId];
             Console.WriteLine($"|\t{currentValue}");
             ConsoleHelper.PrintLine();
 
             if (currentValue == newValue)
-            { 
+            {
                 ShowEditErrorMessage();
                 return;
             }
-            Program.ourAnimals[animalId, animalPropertyId] = newValue;
+            CopntosoPetFriends.ourAnimals[animalId, animalPropertyId] = newValue;
 
             ShowEditSuccessMessage();
         }

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace msLearn
+namespace msLearn.PrintAllAnimalsInfo
 {
     internal class AnimalDatabasePrinter
     {
-        private static int TotalAnimalsCount => Program.ourAnimals.GetLength(0);
+        private static int TotalAnimalsCount => CopntosoPetFriends.ourAnimals.GetLength(0);
         public static void PrintAllOneAnimalAtPage()
         {
             bool isDisplayingRecord = true;
@@ -28,10 +28,10 @@ namespace msLearn
                         Console.WriteLine($"|     Pozycja              | index iteratora: i ={i}                                                 |");
                         Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
 
-                        for (int j = 0; j < Program.ourAnimals.GetLength(1); j++)
+                        for (int j = 0; j < CopntosoPetFriends.ourAnimals.GetLength(1); j++)
                         {
                             Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
-                            Console.WriteLine($"|{Program.ourAnimals[i, j]}");
+                            Console.WriteLine($"|{CopntosoPetFriends.ourAnimals[i, j]}");
                             Console.WriteLine("+--------------------------+-----------------------------------------------------------------------+");
                         }
                         ShowPageInfo(pageNumber);
@@ -49,7 +49,7 @@ namespace msLearn
             Console.WriteLine(TotalAnimalsCount);
             Console.WriteLine("\n");
             Console.WriteLine($"Strona: {pageNumber}");
-            Console.WriteLine($"[{pageNumber}] of [{Program.ourAnimals.GetLength(0)}]");
+            Console.WriteLine($"[{pageNumber}] of [{CopntosoPetFriends.ourAnimals.GetLength(0)}]");
             Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
             Console.ReadLine();
             Console.ResetColor();
@@ -64,7 +64,7 @@ namespace msLearn
             Console.ResetColor();
 
             ManageUserAction();
-            
+
         }
         private static void ManageUserAction()
         {
@@ -80,10 +80,10 @@ namespace msLearn
                 {
                     case 1:
                         PrintAllOneAnimalAtPage();
-                    break;
+                        break;
                     case 2:
-                        Program.Main([]);
-                    break;
+                        CopntosoPetFriends.Main([]);
+                        break;
                     default:
                         ConsoleHelper.ChangeTextColor("Yellow");
                         Console.WriteLine("\nPodana wartośc jest spoza menu");
@@ -91,8 +91,8 @@ namespace msLearn
                         Console.WriteLine("Wciśnij \"Enter\", aby kontynuuować");
                         Console.ResetColor();
                         Console.ReadKey();
-                        Program.Main([]);
-                    break;
+                        CopntosoPetFriends.Main([]);
+                        break;
                 }
             }
         }

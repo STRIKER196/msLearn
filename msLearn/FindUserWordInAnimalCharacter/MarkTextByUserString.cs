@@ -1,4 +1,5 @@
-﻿using System;
+﻿using msLearn.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -8,28 +9,27 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace msLearn
 {
-    internal static class LookForUserStringInAnimalCharacter
+    internal static class MarkTextByUserString
     {
-        
 
-        public static void PrintWords()
+        public static void PrintMarkedWordFromDataBase()
         {
-            string[,] ourAnimals = Program.ourAnimals;
+            string[,] ourAnimals = CopntosoPetFriends.ourAnimals;
 
-            PrintFunctionInfo();
+            PrintBeforeSearchInfo();
             Console.ResetColor();
 
             string? myWord = Console.ReadLine().ToLower() ?? string.Empty;
 
-            FindString(ourAnimals, myWord);
+            MarkMyWord(ourAnimals, myWord);
             ConsoleHelper.PrintLine();
-            ConsoleHelper.FindWordSuccessful();
+            ConsoleHelper.FindMyWordSuccessful();
             RestartOrBack();
         }
 
         private static void RestartOrBack()
         {
-            PrintAfterSerchMenu();
+            PrintAfterSerchOptions();
             int option = ConsoleHelper.GetNumberByReadLine();
 
             switch (option)
@@ -38,7 +38,7 @@ namespace msLearn
                     ConsoleHelper.BackToMainMenu();
                     break;
                 case 1:
-                    PrintWords();
+                    PrintMarkedWordFromDataBase();
                     break;
                 case 2:
                     Console.Clear();
@@ -51,7 +51,7 @@ namespace msLearn
             }
         }
 
-        private static void PrintAfterSerchMenu()
+        private static void PrintAfterSerchOptions()
         {
             Console.ResetColor();
             Console.WriteLine("\n\n+----------+-------------------------------------------------------------------+");
@@ -64,7 +64,7 @@ namespace msLearn
             Console.WriteLine("+----------+-------------------------------------------------------------------+");
             Console.ResetColor();
         }
-        private static void PrintFunctionInfo()
+        private static void PrintBeforeSearchInfo()
         {
             Console.Clear();
             ConsoleHelper.PrintLine();
@@ -74,34 +74,56 @@ namespace msLearn
             Console.Write("\nWyszukaj:");
         }
 
-        private static void FindString(string[,] ourAnimals, string lookedWord)
+        private static void MarkMyWord(string[,] ourAnimals, string lookedWord)
         {
-            Console.WriteLine(""); // odstęp
-
+            
+            Console.Write($"\n\tWskazany ciąg jest zakolorowany na Zielono.\n");
             for (int i = 0; i < ourAnimals.GetLength(0); i++)
             {
-
-                string animalPersonalityDescription = Program.ourAnimals[i, 4] ?? string.Empty;
-                Console.Write($"\tZwierzę {i + 1}| ");
+                string animalPersonalityDescription = CopntosoPetFriends.ourAnimals[i ,AnimalPropertyId.PersonalityDescription] ?? string.Empty;
+                Console.Write($"\tZwierzę {i +1}| ");
                 ColoredWord(animalPersonalityDescription, lookedWord);
 
             }
         }
+        /// <summary>
+        /// Wyszykuje wskzana ciąg jako frazę w docelowej wartości. IndexOf(lookedWord, index, StringComparison.OrdinalIgnoreCase) Igonoruje wielkość literaz w wyszukiwanej wartości.
+        /// </summary>
+        /// <param name="animalPersonalityDescription"> </param>
+        /// <param name="lookedWord"> String, szukany ciąg.</param>
         private static void ColoredWord(string animalPersonalityDescription, string lookedWord)
         {
-            int index = animalPersonalityDescription.IndexOf(lookedWord, StringComparison.OrdinalIgnoreCase);
-
-            while (index != -1)
+            
+            int index = 0;
+            while (index < animalPersonalityDescription.Length)
             {
-                Console.Write(animalPersonalityDescription.Substring(0, index));
+                int foundIndex = animalPersonalityDescription.IndexOf(lookedWord ,index, StringComparison.OrdinalIgnoreCase);
+
+                if (foundIndex == -1)
+                {
+                    Console.Write(animalPersonalityDescription.Substring(index));
+                    break;
+                }
+
+                if (foundIndex > index)
+                {
+                    Console.Write(animalPersonalityDescription.Substring(index ,(foundIndex - index)));
+                }
+
                 ConsoleHelper.ChangeTextColor("Green");
-                Console.Write(lookedWord);
+                Console.Write(animalPersonalityDescription.Substring(foundIndex ,lookedWord.Length));
                 Console.ResetColor();
 
-                animalPersonalityDescription = animalPersonalityDescription.Substring(index + lookedWord.Length);
-                index = animalPersonalityDescription.IndexOf(lookedWord, StringComparison.OrdinalIgnoreCase);
+                index = foundIndex + lookedWord.Length;
+
+                if (index >= animalPersonalityDescription.Length)
+                {
+                    break;
+                }
             }
-            Console.WriteLine(animalPersonalityDescription);
+
+            Console.WriteLine();
         }
+
     }
 }

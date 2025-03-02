@@ -5,11 +5,14 @@ using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 using msLearn.Constants;
-using msLearnData;
+using msLearn.DataBase;
+using msLearn.EditMode;
+using msLearn.FindUserWordInAnimalCharacter;
+using msLearn.PrintAllAnimalsInfo;
 
 namespace msLearn
 {
-    internal class Program
+    internal class CopntosoPetFriends
     {
         public static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
 
@@ -35,7 +38,7 @@ namespace msLearn
                     MenuEditMode.EditModeMenu();
                     break;
                 case 3:
-                    LookForUserStringInAnimalCharacter.PrintWords();
+                    MenuFindWordInDataBase.MenuLookForUserText();
                     break;
                 case 4:
                     Console.WriteLine("Oprogramowanie w trakcie pracy");

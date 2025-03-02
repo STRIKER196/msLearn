@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace msLearn
+namespace msLearn.EditMode
 {
     internal class EditModeGui
     {
@@ -18,7 +18,7 @@ namespace msLearn
             ConsoleHelper.PrintLine();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|\tDo edycji możliwe jest MAX: {Program.ourAnimals.GetLength(0)} pozycji.                                                     |");
+            Console.WriteLine($"|\tDo edycji możliwe jest MAX: {CopntosoPetFriends.ourAnimals.GetLength(0)} pozycji.                                                     |");
             Console.WriteLine($"|\tAby edytować wpisy należy podać numer pozycji ID w bazie.                                  |");
             Console.WriteLine($"|\tDostępne pozycję ID to: 1, 2, 3, 4, 5.                                                     |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
@@ -51,7 +51,7 @@ namespace msLearn
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkCyan");
             Console.WriteLine("\n\n+-----------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|\t{AnimalPropertyId.Species +1}.   |    Edytuj gatunek         |{AnimalPropertyId.Id + 1}.    |    Edytuj id            |{AnimalPropertyId.Age + 1}.   |    Edytuj wiek      |");
+            Console.WriteLine($"|\t{AnimalPropertyId.Species + 1}.   |    Edytuj gatunek         |{AnimalPropertyId.Id + 1}.    |    Edytuj id            |{AnimalPropertyId.Age + 1}.   |    Edytuj wiek      |");
             Console.WriteLine($"|\t{AnimalPropertyId.PhysicalDescription + 1}.   |    Edytuj opis fizyczny   |{AnimalPropertyId.PersonalityDescription + 1}.    |    Edytuj charaktert    |{AnimalPropertyId.NickName + 1}.   |    Edytuj imię      | ");
             Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
             Console.WriteLine("|\tWciśnij cyfrę od 1 - 6, aby edytować wskazaną pozycję.                                        |");
@@ -103,7 +103,7 @@ namespace msLearn
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"|\t{Program.ourAnimals[animalId, animalPropertyId]} \n");
+            Console.Write($"|\t{CopntosoPetFriends.ourAnimals[animalId, animalPropertyId]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");

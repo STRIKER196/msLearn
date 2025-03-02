@@ -1,4 +1,5 @@
-﻿using System;
+﻿using msLearn.EditMode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,7 +63,7 @@ namespace msLearn
             Console.ResetColor();
             Console.ReadKey();
             Console.Clear();
-            Program.Main([]);
+            CopntosoPetFriends.Main([]);
         }
         public static void BackToEditModeMainScreen()
         {
@@ -71,7 +72,7 @@ namespace msLearn
             Console.ResetColor();
             Console.ReadKey();
             Console.Clear();
-            Program.Main([]);
+            CopntosoPetFriends.Main([]);
         }
         public static void UserValueIsOverExpected()
         {
@@ -87,7 +88,7 @@ namespace msLearn
             Console.WriteLine("\n\n\tWystąpił nieoczekiwany błąd.\n\tWciśnij dowolny przycisk.\n\tProgram uruchomi się ponownie");
             Console.ReadLine();
             Console.Clear();
-            Program.Main([]);
+            CopntosoPetFriends.Main([]);
         }
         public static void EditSuccessful()
         {
@@ -97,7 +98,7 @@ namespace msLearn
             Console.Clear();
             MenuEditMode.EditModeMenu();
         }
-        public static void FindWordSuccessful()
+        public static void FindMyWordSuccessful()
         {
             ConsoleHelper.ChangeTextColor("Green");
             Console.WriteLine("\n\n\tOperacja zakończona.\n\tWciśnij dowolny przycisk.\n\tPowrót do menu edycji");
