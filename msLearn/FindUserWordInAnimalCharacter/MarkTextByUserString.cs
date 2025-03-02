@@ -14,7 +14,7 @@ namespace msLearn
 
         public static void PrintMarkedWordFromDataBase()
         {
-            string[,] ourAnimals = CopntosoPetFriends.ourAnimals;
+            string[,] ourAnimals = ContosoPetFriends.ourAnimals;
 
             PrintBeforeSearchInfo();
             Console.ResetColor();
@@ -68,8 +68,9 @@ namespace msLearn
         {
             Console.Clear();
             ConsoleHelper.PrintLine();
-            ConsoleHelper.ChangeTextColor("Blue");
+            ConsoleHelper.ChangeTextColor("DarkYellow");
             Console.WriteLine("\n\tPodaj ciąg, który mam wyszukać w charakterach dostępnych zwierząt: \n");
+            ConsoleHelper.PrintLine();
             ConsoleHelper.ChangeTextColor("Yellow");
             Console.Write("\nWyszukaj:");
         }
@@ -77,15 +78,18 @@ namespace msLearn
         private static void MarkMyWord(string[,] ourAnimals, string lookedWord)
         {
             
-            Console.Write($"\n\tWskazany ciąg jest zakolorowany na Zielono.\n");
+            Console.Write($"\n\tWskazany ciąg jest zakolorowany na Zielono.\n\n");
+            ConsoleHelper.PrintLine();
+
             for (int i = 0; i < ourAnimals.GetLength(0); i++)
             {
-                string animalPersonalityDescription = CopntosoPetFriends.ourAnimals[i ,AnimalPropertyId.PersonalityDescription] ?? string.Empty;
+                string animalPersonalityDescription = ContosoPetFriends.ourAnimals[i ,AnimalPropertyId.PersonalityDescription] ?? string.Empty;
                 Console.Write($"\tZwierzę {i +1}| ");
                 ColoredWord(animalPersonalityDescription, lookedWord);
 
             }
         }
+
         /// <summary>
         /// Wyszykuje wskzana ciąg jako frazę w docelowej wartości. IndexOf(lookedWord, index, StringComparison.OrdinalIgnoreCase) Igonoruje wielkość literaz w wyszukiwanej wartości.
         /// </summary>

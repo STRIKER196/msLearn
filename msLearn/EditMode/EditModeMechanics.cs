@@ -134,7 +134,7 @@ namespace msLearn.EditMode
             Console.ResetColor();
             Console.WriteLine("Stara wartość:");
             ConsoleHelper.ChangeTextColor("DarkBlue");
-            string currentValue = CopntosoPetFriends.ourAnimals[animalId, animalPropertyId];
+            string currentValue = ContosoPetFriends.ourAnimals[animalId, animalPropertyId];
             Console.WriteLine($"|\t{currentValue}");
             ConsoleHelper.PrintLine();
 
@@ -143,7 +143,7 @@ namespace msLearn.EditMode
                 ShowEditErrorMessage();
                 return;
             }
-            CopntosoPetFriends.ourAnimals[animalId, animalPropertyId] = newValue;
+            ContosoPetFriends.ourAnimals[animalId, animalPropertyId] = newValue;
 
             ShowEditSuccessMessage();
         }

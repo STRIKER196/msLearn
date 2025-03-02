@@ -40,7 +40,6 @@ namespace msLearn
 
         public static void PrintLine()
         {
-            //Wypełnienie tabeli
             Console.ResetColor();
             ChangeTextColor("DarkBlue");
             Console.WriteLine("+-----------------------------------------------------------------------------------------------------+");
@@ -63,16 +62,7 @@ namespace msLearn
             Console.ResetColor();
             Console.ReadKey();
             Console.Clear();
-            CopntosoPetFriends.Main([]);
-        }
-        public static void BackToEditModeMainScreen()
-        {
-            ConsoleHelper.ChangeTextColor("Red");
-            Console.WriteLine("\n\n\tPowrót do wyboru zwierzęcia.\n\tWciśnij dowolny przycisk.");
-            Console.ResetColor();
-            Console.ReadKey();
-            Console.Clear();
-            CopntosoPetFriends.Main([]);
+            ContosoPetFriends.Main([]);
         }
         public static void UserValueIsOverExpected()
         {
@@ -88,7 +78,7 @@ namespace msLearn
             Console.WriteLine("\n\n\tWystąpił nieoczekiwany błąd.\n\tWciśnij dowolny przycisk.\n\tProgram uruchomi się ponownie");
             Console.ReadLine();
             Console.Clear();
-            CopntosoPetFriends.Main([]);
+            ContosoPetFriends.Main([]);
         }
         public static void EditSuccessful()
         {

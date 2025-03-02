@@ -22,8 +22,8 @@ namespace msLearn.DataBase
                     animalSpecies = "Pies";
                     animalID = "d1";
                     animalAge = "2";
-                    animalPhysicalDescription = "Œredniej wielkoœci, kremowa, samica golden retriever wa¿¹ca oko³o 65 funtów. Nauczona czystoœci w domu.";
-                    animalPersonalityDescription = "Uwielbia, gdy drapie siê j¹ po brzuchu i lubi goniæ swój ogon. Daje mnóstwo buziaków.";
+                    animalPhysicalDescription = "lala";
+                    animalPersonalityDescription = "lala";
                     animalNickname = "lola";
                 }
                 else if (i == 1)
@@ -48,16 +48,16 @@ namespace msLearn.DataBase
                 {
                     animalSpecies = "Kot";
                     animalID = "c4";
-                    animalAge = "?";
+                    animalAge = "";
                     animalPhysicalDescription = "Ma³y, zwinny kot o miêkkim futrze, który uwielbia drzemki na s³oñcu i zabawy z piórkami. Ciekawski, towarzyski i zawsze gotowy na przytulanie.";
                     animalPersonalityDescription = "Ma miêkkie, puszyste futro, jest zwinny i szybki, ciekawski i towarzyski, uwielbia drzemki na s³oñcu, lubi zabawy z piórkami, jest przyjazny i skory do przytulania.";
                     animalNickname = "";
                 }
                 else if (i == 4)
                 {
-                    animalSpecies = "Papuga";
-                    animalID = "p5";
-                    animalAge = "?";
+                    animalSpecies = "";
+                    animalID = "";
+                    animalAge = "";
                     animalPhysicalDescription = "";
                     animalPersonalityDescription = "";
                     animalNickname = "";

@@ -18,7 +18,7 @@ namespace msLearn.EditMode
             ConsoleHelper.PrintLine();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
-            Console.WriteLine($"|\tDo edycji możliwe jest MAX: {CopntosoPetFriends.ourAnimals.GetLength(0)} pozycji.                                                     |");
+            Console.WriteLine($"|\tDo edycji możliwe jest MAX: {ContosoPetFriends.ourAnimals.GetLength(0)} pozycji.                                                     |");
             Console.WriteLine($"|\tAby edytować wpisy należy podać numer pozycji ID w bazie.                                  |");
             Console.WriteLine($"|\tDostępne pozycję ID to: 1, 2, 3, 4, 5.                                                     |");
             Console.WriteLine("+--------------------------------------------------------------------------------------------------+");
@@ -103,7 +103,7 @@ namespace msLearn.EditMode
             Console.Write($"|");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("Yellow");
-            Console.Write($"|\t{CopntosoPetFriends.ourAnimals[animalId, animalPropertyId]} \n");
+            Console.Write($"|\t{ContosoPetFriends.ourAnimals[animalId, animalPropertyId]} \n");
             Console.ResetColor();
             ConsoleHelper.ChangeTextColor("DarkBlue");
             Console.Write($"|\n");

@@ -9,11 +9,14 @@ using msLearn.DataBase;
 using msLearn.EditMode;
 using msLearn.FindUserWordInAnimalCharacter;
 using msLearn.PrintAllAnimalsInfo;
+using msLearn.CheckIfSomeRecordsAreEmpty;
+
 
 namespace msLearn
 {
-    internal class CopntosoPetFriends
+    internal class ContosoPetFriends
     {
+
         public static string[,] ourAnimals = AnimalsDataHolder.GetSampleData();
 
         public static void Main(string[] args)
@@ -41,14 +44,16 @@ namespace msLearn
                     MenuFindWordInDataBase.MenuLookForUserText();
                     break;
                 case 4:
-                    Console.WriteLine("Oprogramowanie w trakcie pracy");
+                    LookForEmptyRecords.MenuCheckEmptyRecords();
+                    Console.WriteLine("Oprogramowanie w trakcie pracy. Wciśnij dowony przycisk");
+                    Console.ReadLine();
                     break;
                 case 0:
                     Console.Clear();
                     ConsoleHelper.ChangeTextColor("Green");
                     Console.WriteLine("\n\nDo widzenia.");
                     Console.ResetColor();
-                    Console.ReadKey();
+                    Console.ReadLine();
                     break;
             }
         }
